@@ -1,21 +1,21 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
-//ÇÃ·¹ÀÌ¾îÀÇ ½ºÅÈ°ú Ã¼·Â µîµîÀ» ´ã´çÇÒ ½ºÅ©¸³Æ®.
-//³ªÁß¿¡´Â PlayerController, GrounderCheckerµîµµ ÇÊµå·Î °®°Ô ÇÏ°í,
-//ÀÌ Å¬·¡½º¸¸ StateMachineÀ» »ý¼ºÇÒ ¶§ Àü´ÞÇÏ´Â ½ÄÀ¸·Î ¹Ù²ã¾ß ÇÑ´Ù.
-//ÃßÈÄ¿¡ ´Ù¾çÇÑ Ä³¸¯ÅÍ¸¦ ±¸ÇöÇÏ°íÀÚ ÇÑ´Ù¸é, SO¸¦ ¸¸µé¾î ÇÒ´çÇÏ´Â ½ÄÀ¸·Î ÀÛ¾÷ÇÒ ¼ö ÀÖÀ» °Í.
+//í”Œë ˆì´ì–´ì˜ ìŠ¤íƒ¯ê³¼ ì²´ë ¥ ë“±ë“±ì„ ë‹´ë‹¹í•  ìŠ¤í¬ë¦½íŠ¸.
+//ë‚˜ì¤‘ì—ëŠ” PlayerController, GrounderCheckerë“±ë„ í•„ë“œë¡œ ê°–ê²Œ í•˜ê³ ,
+//
+//ì¶”í›„ì— ë‹¤ì–‘í•œ ìºë¦­í„°ë¥¼ êµ¬í˜„í•˜ê³ ìž í•œë‹¤ë©´, SOë¥¼ ë§Œë“¤ì–´ í• ë‹¹í•˜ëŠ” ì‹ìœ¼ë¡œ ìž‘ì—…í•  ìˆ˜ ìžˆì„ ê²ƒ.
 
 
-public class Player : MonoBehaviour, IDamageable
+public class PlayerHealth : MonoBehaviour, IDamageable
 {
-    [Header("ÃÖ´ë Ã¼·Â")]
+    [Header("ìµœëŒ€ ì²´ë ¥")]
     [SerializeField] private int maxHp = 100;
-    [Header("ÇöÀç Ã¼·Â")]
+    [Header("í˜„ìž¬ ì²´ë ¥")]
     private int currentHp;
 
 
-    //ÇÃ·¹ÀÌ¾îÀÇ Ã¼·ÂÀÌ º¯È­ÇÒ ¶§ ¹ßÇàÇÒ ÀÌº¥Æ®.
+    //í”Œë ˆì´ì–´ì˜ ì²´ë ¥ì´ ë³€í™”í•  ë•Œ ë°œí–‰í•  ì´ë²¤íŠ¸.
     public event Action playerHealthChanged;
 
 
@@ -23,8 +23,8 @@ public class Player : MonoBehaviour, IDamageable
     {
         get => currentHp;
 
-        private set //ÇöÀç Ã¼·ÂÀÌ º¯°æµÉ ¶§, ¿©±â¿¡¼­ Ã¼·ÂÀÌ º¯°æµÇ¾úÀ½À» ¾Ë¸®´Â ÀÌº¥Æ®¸¦ InvokeÇÑ´Ù.
-        { //´Ù¸¸, Çö »óÈ²¿¡¼­´Â Ã¼·ÂÀÌ º¯°æµÇÁö ¾ÊÀ½¿¡µµ Invoke°¡ ½ÇÇàµÉ ¼ö ÀÖ´Ù.
+        private set //í˜„ìž¬ ì²´ë ¥ì´ ë³€ê²½ë  ë•Œ, ì—¬ê¸°ì—ì„œ ì²´ë ¥ì´ ë³€ê²½ë˜ì—ˆìŒì„ ì•Œë¦¬ëŠ” ì´ë²¤íŠ¸ë¥¼ Invokeí•œë‹¤.
+        { //ë‹¤ë§Œ, í˜„ ìƒí™©ì—ì„œëŠ” ì²´ë ¥ì´ ë³€ê²½ë˜ì§€ ì•ŠìŒì—ë„ Invokeê°€ ì‹¤í–‰ë  ìˆ˜ ìžˆë‹¤.
             currentHp = Mathf.Clamp(value, 0, maxHp);
 
             playerHealthChanged?.Invoke();
