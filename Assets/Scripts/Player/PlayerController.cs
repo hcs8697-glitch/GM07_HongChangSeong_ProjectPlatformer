@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpPower = 6.0f;
 
 
-    //PlayerController가 이제는 GroundChecker랑, PlayerAttack이랑, AnimationController를 알 필요가 없다. 다 지워야 할 것?
+    //PlayerController가 이제는 PlayerAttack이랑, AnimationController를 알 필요가 없다. 다 지워야 할 것?
+    //다만, 현 시점에서 "점프"의 경우는 알아야 하는 거 같은데... 이것도 그냥 점프 로직만 여기서 제공하고 제약을 상태머신에서 관리하는 게 맞지 않나
     [SerializeField] private GroundChecker groundChecker;
 
 
@@ -90,9 +91,4 @@ public class PlayerController : MonoBehaviour
             isDucking = false;
             rb.linearVelocityY = jumpPower;
     }
-
-
-    //이게 컨트롤러에 들어있을 이유가 있나?
-    //이것도, 퍼사드에서 제공하는게 맞으니까 Player클래스로 옮겨야 할 것이다.
-
 }
