@@ -88,7 +88,7 @@ public class WallChecker : MonoBehaviour
             Gizmos.color = Color.green;
         }
 
-        Gizmos.DrawWireCube(transform.position)
+        //Gizmos.DrawWireCube(transform.position)
 
     }
 
