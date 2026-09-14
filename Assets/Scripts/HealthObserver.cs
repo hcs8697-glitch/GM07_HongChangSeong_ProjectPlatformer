@@ -7,19 +7,22 @@ public class HealthObserver : MonoBehaviour
 {
     [Header("플레이어")]
     [SerializeField] private TextMeshProUGUI playerHealthText;
-    [SerializeField] private PlayerHealth player;
+    [SerializeField] private Player player;
     [Header("적")]
     [SerializeField] private TextMeshProUGUI enemyHealthText;
     [SerializeField] private Enemy enemy;
 
-    private void Awake() //이벤트 구독
+    private void Awake() 
     {
-        player.playerHealthChanged += RefreshHealthText;
-        enemy.enemyHealthChanged += RefreshEnemyHealthText;
+
     }
 
-    private void Start() //Start에서 한 번 실행하여 체력을 반영한다.
+    private void Start() //이벤트부터 구독 후 Start에서 한 번 실행하여 체력을 반영한다. 그리고 이거... 방어코드 있어야 할 거 같은데
     {
+        player.Health.playerHealthChanged += RefreshHealthText;
+        enemy.enemyHealthChanged += RefreshEnemyHealthText;
+
+
         RefreshHealthText();
         RefreshEnemyHealthText();
     }
@@ -28,7 +31,7 @@ public class HealthObserver : MonoBehaviour
     {
         if (player == null) return;
 
-        playerHealthText.text = "Player : " + player.CurrentHp;
+        playerHealthText.text = "Player : " + player.Health.CurrentHp;
     }
 
     private void RefreshEnemyHealthText()
@@ -41,6 +44,6 @@ public class HealthObserver : MonoBehaviour
 
     private void OnDestroy() //이벤트 구독 해제
     {
-        player.playerHealthChanged -= RefreshHealthText;
+        player.Health.playerHealthChanged -= RefreshHealthText;
     }
 }

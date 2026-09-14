@@ -1,14 +1,15 @@
-using UnityEngine;
+﻿using UnityEngine;
 
+
+//이걸 필드를 만들어야 할 이유가 있나? Player클래스에서 프로퍼티를 제공하는데.
 public class Duck_WalkState : IState
 {
-    private PlayerController player;
-    private GroundChecker playerGroundChecker;
+    private Player player;
 
-    public Duck_WalkState(PlayerController player, GroundChecker playerGroundChecker)
+
+    public Duck_WalkState(Player player)
     {
         this.player = player;
-        this.playerGroundChecker = playerGroundChecker;
     }
 
     public void Enter()
@@ -18,7 +19,7 @@ public class Duck_WalkState : IState
 
     public void Stay()
     {
-        player.Move(player.DuckWalkSpeed);
+        player.Controller.Move(player.Controller.DuckWalkSpeed);
         player.AnimationController.SetState(PlayerAnimationController.PlayerAnimState.Duck_Walk);
 
         if (InputManager.IsLeftClicked)

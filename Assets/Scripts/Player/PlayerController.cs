@@ -1,29 +1,28 @@
-using UnityEngine;
-//Rigidbody2D ÄÄÆ÷³ÍÆ®¸¦ ÀÌ¿ëÇØ ¿òÁ÷ÀÓÀ» ±¸ÇöÇÒ °Í.
-//°¢ »óÅÂÀÇ ·ÎÁ÷(ÀÌµ¿, Á¡ÇÁ, °ø°İ)Àº ÀÌ ½ºÅ©¸³Æ®¿¡ ³Ö´Â´Ù. ¼öÁ¤ÇØ¾ß ÇÒ °æ¿ì ÀÌ ½ºÅ©¸³Æ®¸¸ ¼öÁ¤ÇÏ°Ô ÇÑ´Ù.
-//°¢ ÀÌµ¿ ¸Ş¼­µåµéÀº ÀÌ ½ºÅ©¸³Æ®ÀÇ Update°¡ ¾Æ´Ï¶ó, °¢ State¿¡¼­ ½ÇÇàµÇ¾î¾ß¸¸ ÇÑ´Ù.
+ï»¿using UnityEngine;
+//Rigidbody2D ì»´í¬ë„ŒíŠ¸ë¥¼ ì´ìš©í•´ ì›€ì§ì„ì„ êµ¬í˜„í•  ê²ƒ.
+//ê° ìƒíƒœì˜ ë¡œì§(ì´ë™, ì í”„, ê³µê²©)ì€ ì´ ìŠ¤í¬ë¦½íŠ¸ì— ë„£ëŠ”ë‹¤. ìˆ˜ì •í•´ì•¼ í•  ê²½ìš° ì´ ìŠ¤í¬ë¦½íŠ¸ë§Œ ìˆ˜ì •í•˜ê²Œ í•œë‹¤.
+//ê° ì´ë™ ë©”ì„œë“œë“¤ì€ ì´ ìŠ¤í¬ë¦½íŠ¸ì˜ Updateê°€ ì•„ë‹ˆë¼, ê° Stateì—ì„œ ì‹¤í–‰ë˜ì–´ì•¼ë§Œ í•œë‹¤.
 
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-    [Header("ÀÌµ¿¼Óµµ")]
+    [Header("ì´ë™ì†ë„")]
     [SerializeField] private float walkSpeed = 5.0f;
     [SerializeField] private float duckWalkSpeed = 3.3f;
     [SerializeField] private float airWalkSpeed = 5.0f;
     [SerializeField] private float jumpPower = 6.0f;
 
-    [SerializeField] private GroundChecker groundChecker; //ÀÎ½ºÆåÅÍ¿¡¼­ ³ÖÀ¸´Ï GetComponentInChildrenÀº ÇÊ¿ä ¾øÀ» ¼ö ÀÖÀ½.
 
-    [SerializeField] private PlayerAttack playerAttack;
+    //PlayerControllerê°€ ì´ì œëŠ” GroundCheckerë‘, PlayerAttackì´ë‘, AnimationControllerë¥¼ ì•Œ í•„ìš”ê°€ ì—†ë‹¤. ë‹¤ ì§€ì›Œì•¼ í•  ê²ƒ?
+    [SerializeField] private GroundChecker groundChecker;
 
-    [SerializeField] private PlayerAnimationController animationController;
 
     private SpriteRenderer spriteRenderer;
 
     private Rigidbody2D rb;
 
-    private SimplePlayerStateMachine playerStateMachine;
+
 
     private bool isDucking = false;
 
@@ -35,28 +34,18 @@ public class PlayerController : MonoBehaviour
     public float AirWalkSpeed => airWalkSpeed;
     public Rigidbody2D Rb => rb;
 
-    public PlayerAttack PlayerAttack => playerAttack;
 
-    public PlayerAnimationController AnimationController => animationController;
 
-    public SimplePlayerStateMachine PlayerStateMachine => playerStateMachine;
-
-    //PlayerAttack µî¿¡°Ô ¹Ù¶óº¸°í ÀÖ´Â ¹æÇâÀ» Àü´ŞÇÒ ÇÁ·ÎÆÛÆ¼
+    //PlayerAttack ë“±ì—ê²Œ ë°”ë¼ë³´ê³  ìˆëŠ” ë°©í–¥ì„ ì „ë‹¬í•  í”„ë¡œí¼í‹°
     public int FacingDirection { get; private set; } = 1;
 
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        groundChecker = GetComponentInChildren<GroundChecker>();
-        playerStateMachine = new SimplePlayerStateMachine(this, groundChecker);
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    void Start()
-    {
-        playerStateMachine.Initialize(playerStateMachine.IdleState);
-    }
 
     void Update()
     {
@@ -70,27 +59,26 @@ public class PlayerController : MonoBehaviour
             spriteRenderer.flipX = false;
             FacingDirection = -1;
         }
-
-        playerStateMachine.Stay();
     }
 
     public void Move(float moveSpeed)
     {
-        float moveX = InputManager.Movement.x; //ÀÔ·Â °ª¿¡¼­ xÃà¸¸ °¡Á®¿È.
+        float moveX = InputManager.Movement.x; //ì…ë ¥ ê°’ì—ì„œ xì¶•ë§Œ ê°€ì ¸ì˜´.
 
         rb.linearVelocityX = moveX * moveSpeed;
     }
 
+    //ì´ê±°ë¥¼ ì»¨íŠ¸ë¡¤ëŸ¬ê°€ ì œê³µí•˜ëŠ” ê²Œ ë§ë‚˜? ì•„ë‹ˆë©´ í¼ì‚¬ë“œì—ì„œ ì¡°ë¦½í• ê¹Œ?
     private void Duck()
     {
-        if (InputManager.Movement.y <0 && groundChecker.IsGrounded) //SÅ°¸¦ ´©¸£°í ÀÖ´Ù¸é ¼÷ÀÌ±â
+        if (InputManager.Movement.y <0 && groundChecker.IsGrounded) //Sí‚¤ë¥¼ ëˆ„ë¥´ê³  ìˆë‹¤ë©´ ìˆ™ì´ê¸°
         {
-            Debug.Log("¼÷ÀÓ Àû¿ë");
+            Debug.Log("ìˆ™ì„ ì ìš©");
             isDucking = true;
         }
         else
         {
-            Debug.Log("¼÷ÀÓ ÇØÁ¦");
+            Debug.Log("ìˆ™ì„ í•´ì œ");
             isDucking = false;
         }
     }
@@ -103,12 +91,8 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocityY = jumpPower;
     }
 
-    public void TryAttack()
-    {     
-        if (!playerAttack.CanAttack) return;
 
-        playerAttack.Attack();
-        animationController.SetTrigger();
-        AudioManager.Instance.PlaySFX(ESfx.SFX_Attack);
-    }
+    //ì´ê²Œ ì»¨íŠ¸ë¡¤ëŸ¬ì— ë“¤ì–´ìˆì„ ì´ìœ ê°€ ìˆë‚˜?
+    //ì´ê²ƒë„, í¼ì‚¬ë“œì—ì„œ ì œê³µí•˜ëŠ”ê²Œ ë§ìœ¼ë‹ˆê¹Œ Playerí´ë˜ìŠ¤ë¡œ ì˜®ê²¨ì•¼ í•  ê²ƒì´ë‹¤.
+
 }

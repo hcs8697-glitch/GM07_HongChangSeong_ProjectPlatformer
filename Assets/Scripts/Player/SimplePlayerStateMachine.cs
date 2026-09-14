@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 
 [Serializable]
@@ -15,13 +15,13 @@ public class SimplePlayerStateMachine
 
     public event Action<IState> stateChanged;
 
-    public SimplePlayerStateMachine(PlayerController player, GroundChecker playerGroundChecker)
+    public SimplePlayerStateMachine(Player player)
     {
-        IdleState = new IdleState(player, playerGroundChecker);
-        WalkState = new WalkState(player, playerGroundChecker);
-        JumpState = new JumpState(player, playerGroundChecker);
-        DuckState = new DuckState(player, playerGroundChecker);
-        Duck_WalkState = new Duck_WalkState(player, playerGroundChecker);
+        IdleState = new IdleState(player);
+        WalkState = new WalkState(player);
+        JumpState = new JumpState(player);
+        DuckState = new DuckState(player);
+        Duck_WalkState = new Duck_WalkState(player);
     }
 
     public void Initialize(IState state)

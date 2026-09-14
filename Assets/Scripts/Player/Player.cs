@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 //플레이어의 상태를 관장하는 최상위클래스
-//상태머신을 만들 때, 이 클래스만 생성자로 전달하고, 나머지는 player.
+//상태머신을 만들 때, 이 클래스만 생성자로 전달하고, 나머지는 player. 이런 식으로 호출하는 구조를 만든다.
 
 //그니까 싱글톤은 아마도 아닐 거잖아.
 //정적 인스턴스하나 만들면 접근은 편한데 Player.Instance.EWTWETwet
@@ -11,7 +11,10 @@
 //가령 적이나 UI와 같은 경우에는 이벤트 기반으로 해야  할 것인지
 //이벤트 기반으로 한다고 할지라도, 결국에는 정적 인스턴스 안 만들면 필드로 가져야 하거든?
 
+//TODO : 상태머신에서 Player만 딱 건네줄 수 있도록 리팩토링
 
+//퍼사드 패턴을 고려한다. 각 클래스에서 메서드를 제공하고
+//이 퍼사드에서 조립하여 그걸 상태머신이 활용할 수 있는 구조를 만든다.
 
 public class Player : MonoBehaviour
 {
@@ -20,24 +23,70 @@ public class Player : MonoBehaviour
     private PlayerAttack attack;
     private PlayerHealth health;
     private PlayerController controller;
+    private GroundChecker groundChecker;
+    private SimplePlayerStateMachine playerStateMachine;
 
     //프로퍼티
-    private PlayerAnimationController AnimationController => animationController;
-    private PlayerAttack Attack => attack;
-    private PlayerHealth Health => health;
-    private PlayerController Controller => controller;
+    public PlayerAnimationController AnimationController => animationController;
+    public PlayerAttack Attack => attack;
+    public PlayerHealth Health => health;
+    public PlayerController Controller => controller;
+    public GroundChecker GroundChecker => groundChecker;
+    public SimplePlayerStateMachine PlayerStateMachine => playerStateMachine;
 
-    //TODO : 상태머신에서 Player만 딱 건네줄 수 있도록 리팩토링
 
 
     private void Awake()
     {
+        EnsureComponents();
+        //Awake에서 생성자를 통해 상태머신을 생성한다.
+        playerStateMachine = new SimplePlayerStateMachine(this);
+    }
+
+    //상태머신을 갖는 클래스가 초기화를 하고
+    private void Start()
+    {
+        playerStateMachine.Initialize(playerStateMachine.IdleState);
+    }
+
+    //상태머신을 갖는 클래스가 Stay만 업데이트에서 호출하면 알아서 되는 구조
+    private void Update()
+    {
+        playerStateMachine.Stay();
+    }
+
+
+
+    //퍼사드 메서드
+    //고민을 해야하는게, 여기에서 메서드를 조립해서 상태머신에 전달할지
+    //아니면은 상태머신이 알아서 필요한 거 하나씩 호출할지 생각해야한다.
+    //근데 조립이 맞는 것 같긴 해.
+    public void TryAttack()
+    {
+        if (!attack.CanAttack) return;
+
+        attack.Attack();
+        animationController.SetTrigger();
+        AudioManager.Instance.PlaySFX(ESfx.SFX_Attack);
+    }
+
+    //초기 실행될 때, 필요한 컴포넌트를 추가하고, 추가하지 못했다면 오류를 제공할 메서드
+    //TryGetComponent를 사용하여, 오류 문구를 출력하게 하거나, 이 메서드가 반환값이 bool이어서, false면 뭔가 실행 안 되게끔
+
+    private void EnsureComponents()
+    {
+        
+
+
+
+
         animationController = GetComponent<PlayerAnimationController>();
         controller = GetComponent<PlayerController>();
         health = GetComponent<PlayerHealth>();
         attack = GetComponent<PlayerAttack>();
-    }
+        groundChecker = GetComponentInChildren<GroundChecker>();
 
+    }
 
 
 }
