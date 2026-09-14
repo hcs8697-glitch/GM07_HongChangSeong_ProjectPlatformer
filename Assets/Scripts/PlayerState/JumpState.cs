@@ -1,35 +1,34 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class JumpState : IState
 {
-    private PlayerController player;
-    private GroundChecker playerGroundChecker;
+    private Player player;
 
-    public JumpState(PlayerController player, GroundChecker playerGroundChecker)
+    public JumpState(Player player)
     {
         this.player = player;
-        this.playerGroundChecker = playerGroundChecker;
+
     }
 
     public void Enter()
     {
         Debug.Log("JumpState");
-        player.Jump();
+        player.Controller.Jump();
         player.AnimationController.SetState(PlayerAnimationController.PlayerAnimState.Jump);
     }
 
     public void Stay()
     {
-        player.Move(player.AirWalkSpeed);
+        player.Controller.Move(player.Controller.AirWalkSpeed);
 
         if (InputManager.IsLeftClicked)
         {
             player.TryAttack();
         }
 
-        if (!playerGroundChecker.IsGrounded) return;
+        if (!player.GroundChecker.IsGrounded) return;
 
-        if (player.Rb.linearVelocity.y > 0) return;
+        if (player.Controller.Rb.linearVelocity.y > 0) return;
 
         if (InputManager.Movement.x != 0)
         {

@@ -1,14 +1,12 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DuckState : IState
 {
-    private PlayerController player;
-    private GroundChecker playerGroundChecker;
+    private Player player;
 
-    public DuckState(PlayerController player, GroundChecker playerGroundChecker)
+    public DuckState(Player player)
     {
         this.player = player;
-        this.playerGroundChecker = playerGroundChecker;
     }
 
     public void Enter()

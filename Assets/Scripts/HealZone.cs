@@ -1,10 +1,10 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-//OnTriggerStay2D¸¦ È°¿ëÇØ, ÇÃ·¹ÀÌ¾î°¡ ÁøÀÔÇØÀÖ´Â µ¿¾È Heal¸Ş¼­µå¸¦ È£ÃâÇÒ ½ºÅ©¸³Æ®.
+//OnTriggerStay2Dë¥¼ í™œìš©í•´, í”Œë ˆì´ì–´ê°€ ì§„ì…í•´ìˆëŠ” ë™ì•ˆ Healë©”ì„œë“œë¥¼ í˜¸ì¶œí•  ìŠ¤í¬ë¦½íŠ¸.
 
 public class HealZone : MonoBehaviour
 {
-    [Header("È¸º¹·®")]
+    [Header("íšŒë³µëŸ‰")]
     [SerializeField] private int healAmount = 1;
 
 
@@ -14,8 +14,8 @@ public class HealZone : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            Debug.Log("PlayerÅÂ±×ÀÎ °ÍÀÌ ¿µ¿ª ¾ÈÀ¸·Î µé¾î¿È");
-            Player player = collision.GetComponent<Player>();
+            Debug.Log("Playeríƒœê·¸ì¸ ê²ƒì´ ì˜ì—­ ì•ˆìœ¼ë¡œ ë“¤ì–´ì˜´");
+            PlayerHealth player = collision.GetComponent<PlayerHealth>();
 
             player.Heal(healAmount);
         }

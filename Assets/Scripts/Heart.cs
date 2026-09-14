@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class Heart : MonoBehaviour
 {
@@ -8,9 +8,9 @@ public class Heart : MonoBehaviour
     {
         if(collision.CompareTag("Player"))
         {
-            Player player = collision.GetComponent<Player>();
+            PlayerHealth player = collision.GetComponent<PlayerHealth>();
 
-            //¸¸¾à ÇöÀç Ã¼·Â°ú ÃÖ´ë Ã¼·ÂÀÌ °°Àº »óÅÂ¶ó¸é ½ÇÇàÇÏÁö ¾Ê´Â´Ù.
+            //ë§Œì•½ í˜„ì¬ ì²´ë ¥ê³¼ ìµœëŒ€ ì²´ë ¥ì´ ê°™ì€ ìƒíƒœë¼ë©´ ì‹¤í–‰í•˜ì§€ ì•ŠëŠ”ë‹¤.
             if (player.CurrentHp == player.MaxHp) return;
 
             player.Heal(healAmount);

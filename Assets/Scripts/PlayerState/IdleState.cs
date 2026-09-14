@@ -1,14 +1,13 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class IdleState : IState
 {
-    private PlayerController player;
-    private GroundChecker playerGroundChecker;
+    private Player player;
 
-    public IdleState(PlayerController player, GroundChecker playerGroundChecker)
+
+    public IdleState(Player player)
     {
         this.player = player;
-        this.playerGroundChecker = playerGroundChecker;
     }
 
     public void Enter()
@@ -25,7 +24,7 @@ public class IdleState : IState
             player.TryAttack();
         }
 
-        if (playerGroundChecker.IsGrounded && InputManager.IsJump)
+        if (player.GroundChecker.IsGrounded && InputManager.IsJump)
         {
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.JumpState);
             return;
@@ -35,7 +34,7 @@ public class IdleState : IState
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.WalkState);
             return;
         }
-        if(InputManager.Movement.y < 0 && playerGroundChecker.IsGrounded)
+        if(InputManager.Movement.y < 0 && player.GroundChecker.IsGrounded)
         {
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.DuckState);
         }

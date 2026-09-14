@@ -1,17 +1,18 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 
-//ÇÃ·¹ÀÌ¾î¿Í ÀûÀÇ »óÅÂ¸¦ UI¿¡ ÅØ½ºÆ®·Î ¹İ¿µÇÏ´Â ½ºÅ©¸³Æ®.
-//ÀÌ ½ºÅ©¸³Æ®´Â ÇÃ·¹ÀÌ¾î°¡ µé°í ÀÖÁö ¾Ê°í, UI PanelÀÌ µé°í ÀÖ°Ô ¸¸µé ¿¹Á¤.
+//í”Œë ˆì´ì–´ì™€ ì ì˜ ìƒíƒœë¥¼ UIì— í…ìŠ¤íŠ¸ë¡œ ë°˜ì˜í•˜ëŠ” ìŠ¤í¬ë¦½íŠ¸.
+//ì´ ìŠ¤í¬ë¦½íŠ¸ëŠ” í”Œë ˆì´ì–´ê°€ ë“¤ê³  ìˆì§€ ì•Šê³ , UI Panelì´ ë“¤ê³  ìˆê²Œ ë§Œë“¤ ì˜ˆì •.
+//ë””ë²„ê·¸ìš© íŒ¨ë„ì´ì§€ë§Œ, ì´ê²Œ ìˆì–´ì•¼ êµ‰ì¥íˆ í¸í•  ê²ƒìœ¼ë¡œ ì œëŒ€ë¡œ ì‘ë™í•  ìˆ˜ ìˆê²Œ ë§Œë“ ë‹¤.
 
 public class StateView : MonoBehaviour
 {
-    [Header("ÇÃ·¹ÀÌ¾î »óÅÂ Ã¼Å©¿ë")]
+    [Header("í”Œë ˆì´ì–´ ìƒíƒœ ì²´í¬ìš©")]
     [SerializeField] private TextMeshProUGUI playerStateText;
-    [SerializeField] private PlayerController player;
+    [SerializeField] private Player player;
     private SimplePlayerStateMachine playerStateMachine;
 
-    [Header("Àû »óÅÂ Ã¼Å©¿ë")]
+    [Header("ì  ìƒíƒœ ì²´í¬ìš©")]
     [SerializeField] private TextMeshProUGUI enemyStateText;
     [SerializeField] private EnemyController enemy;
     private SimpleEnemyStateMachine enemyStateMachine;

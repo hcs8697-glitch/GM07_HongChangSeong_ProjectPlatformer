@@ -1,23 +1,23 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 //TODO
-//ÇÃ·¹ÀÌ¾î¿Í ¶È°°ÀÌ ÇöÀç Ã¼·Â °ü¸®ÇÏ°Ô ÇÏ±â.
+//í”Œë ˆì´ì–´ì™€ ë˜‘ê°™ì´ í˜„ì¬ ì²´ë ¥ ê´€ë¦¬í•˜ê²Œ í•˜ê¸°.
 
 public class Enemy : MonoBehaviour, IDamageable
 {
-    [Header("ÃÖ´ë Ã¼·Â")]
+    [Header("ìµœëŒ€ ì²´ë ¥")]
     [SerializeField] private int maxHp = 100;
-    [Header("ÇöÀç Ã¼·Â")]
+    [Header("í˜„ì¬ ì²´ë ¥")]
     [SerializeField] private int currentHp;
-    [Header("°ø°İ·Â")]
+    [Header("ê³µê²©ë ¥")]
     [SerializeField] private int attackPower = 5;
-    [Header("µå¶ø ¾ÆÀÌÅÛ")] //¹è¿­·Î ¸¸µé¸é, ¿©·¯ ¾ÆÀÌÅÛµéÀ» »ı¼ºÇÏ°Ô ÇÏ°Å³ª ·£´ıÀ¸·Î µÑ Áß ÇÏ³ª¸¦ »ı¼ºÇÏ°Ô ÇÒ ¼ö ÀÖ´Ù.
+    [Header("ë“œë ì•„ì´í…œ")] //ë°°ì—´ë¡œ ë§Œë“¤ë©´, ì—¬ëŸ¬ ì•„ì´í…œë“¤ì„ ìƒì„±í•˜ê²Œ í•˜ê±°ë‚˜ ëœë¤ìœ¼ë¡œ ë‘˜ ì¤‘ í•˜ë‚˜ë¥¼ ìƒì„±í•˜ê²Œ í•  ìˆ˜ ìˆë‹¤.
     [SerializeField] private GameObject dropItem;
 
     public int CurrentHp => currentHp;
 
-    //ÇÃ·¹ÀÌ¾îÀÇ Ã¼·ÂÀÌ º¯È­ÇÒ ¶§ ¹ßÇàÇÒ ÀÌº¥Æ®.
+    //í”Œë ˆì´ì–´ì˜ ì²´ë ¥ì´ ë³€í™”í•  ë•Œ ë°œí–‰í•  ì´ë²¤íŠ¸.
     public event Action enemyHealthChanged;
 
 
@@ -30,8 +30,8 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         if(collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("ÇÃ·¹ÀÌ¾î ÅÂ±×ÀÎ °Í°ú Á¢ÃË ¼º°ø");
-            Player player = collision.gameObject.GetComponent<Player>();
+            Debug.Log("í”Œë ˆì´ì–´ íƒœê·¸ì¸ ê²ƒê³¼ ì ‘ì´‰ ì„±ê³µ");
+            PlayerHealth player = collision.gameObject.GetComponent<PlayerHealth>();
             player.TakeDamage(attackPower);
         }
     }
@@ -39,13 +39,13 @@ public class Enemy : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         currentHp -= damage;
-        Debug.Log($"ÀûÀÌ ÇÇÇØ¸¦ ÀÔÀ½. ÇÇÇØ : {damage}, ÇöÀç ÀûÀÇ Ã¼·Â : {currentHp}");
+        Debug.Log($"ì ì´ í”¼í•´ë¥¼ ì…ìŒ. í”¼í•´ : {damage}, í˜„ì¬ ì ì˜ ì²´ë ¥ : {currentHp}");
         enemyHealthChanged?.Invoke();
 
 
         if (currentHp <= 0)
         {
-            Debug.Log("Àû »ç¸Á");
+            Debug.Log("ì  ì‚¬ë§");
             Die();
         }
     }
@@ -60,7 +60,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void Die()
     {
-        //Á×¾úÀ» ¶§ ¼³Á¤ÇÑ µå¶ø ¾ÆÀÌÅÛÀ» ÀÚ½ÅÀÇ À§Ä¡¿¡´Ù »ı¼ºÇÑ´Ù.
+        //ì£½ì—ˆì„ ë•Œ ì„¤ì •í•œ ë“œë ì•„ì´í…œì„ ìì‹ ì˜ ìœ„ì¹˜ì—ë‹¤ ìƒì„±í•œë‹¤.
 
         if(dropItem != null)
         {

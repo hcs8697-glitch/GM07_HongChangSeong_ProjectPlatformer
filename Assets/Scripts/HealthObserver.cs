@@ -1,25 +1,28 @@
-using TMPro;
+ï»¿using TMPro;
 using UnityEngine;
 
-//Ã¼·ÂÀÌ º¯È­ÇÏ´Â ÀÌº¥Æ®¸¦ ±¸µ¶ÇÏ°í, ±×°É Text¿¡ ¹İ¿µÇÏ°Ô ÇÒ ½ºÅ©¸³Æ®.
+//ì²´ë ¥ì´ ë³€í™”í•˜ëŠ” ì´ë²¤íŠ¸ë¥¼ êµ¬ë…í•˜ê³ , ê·¸ê±¸ Textì— ë°˜ì˜í•˜ê²Œ í•  ìŠ¤í¬ë¦½íŠ¸.
 
 public class HealthObserver : MonoBehaviour
 {
-    [Header("ÇÃ·¹ÀÌ¾î")]
+    [Header("í”Œë ˆì´ì–´")]
     [SerializeField] private TextMeshProUGUI playerHealthText;
     [SerializeField] private Player player;
-    [Header("Àû")]
+    [Header("ì ")]
     [SerializeField] private TextMeshProUGUI enemyHealthText;
     [SerializeField] private Enemy enemy;
 
-    private void Awake() //ÀÌº¥Æ® ±¸µ¶
+    private void Awake() 
     {
-        player.playerHealthChanged += RefreshHealthText;
-        enemy.enemyHealthChanged += RefreshEnemyHealthText;
+
     }
 
-    private void Start() //Start¿¡¼­ ÇÑ ¹ø ½ÇÇàÇÏ¿© Ã¼·ÂÀ» ¹İ¿µÇÑ´Ù.
+    private void Start() //ì´ë²¤íŠ¸ë¶€í„° êµ¬ë… í›„ Startì—ì„œ í•œ ë²ˆ ì‹¤í–‰í•˜ì—¬ ì²´ë ¥ì„ ë°˜ì˜í•œë‹¤. ê·¸ë¦¬ê³  ì´ê±°... ë°©ì–´ì½”ë“œ ìˆì–´ì•¼ í•  ê±° ê°™ì€ë°
     {
+        player.Health.playerHealthChanged += RefreshHealthText;
+        enemy.enemyHealthChanged += RefreshEnemyHealthText;
+
+
         RefreshHealthText();
         RefreshEnemyHealthText();
     }
@@ -28,7 +31,7 @@ public class HealthObserver : MonoBehaviour
     {
         if (player == null) return;
 
-        playerHealthText.text = "Player : " + player.CurrentHp;
+        playerHealthText.text = "Player : " + player.Health.CurrentHp;
     }
 
     private void RefreshEnemyHealthText()
@@ -39,8 +42,8 @@ public class HealthObserver : MonoBehaviour
     }
 
 
-    private void OnDestroy() //ÀÌº¥Æ® ±¸µ¶ ÇØÁ¦
+    private void OnDestroy() //ì´ë²¤íŠ¸ êµ¬ë… í•´ì œ
     {
-        player.playerHealthChanged -= RefreshHealthText;
+        player.Health.playerHealthChanged -= RefreshHealthText;
     }
 }

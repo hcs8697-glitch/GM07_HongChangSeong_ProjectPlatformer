@@ -1,14 +1,14 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class WalkState : IState
 {
-    private PlayerController player;
-    private GroundChecker playerGroundChecker;
+    private Player player;
 
-    public WalkState(PlayerController player, GroundChecker playerGroundChecker)
+
+    public WalkState(Player player)
     {
         this.player = player;
-        this.playerGroundChecker = playerGroundChecker;
+
     }
 
     public void Enter()
@@ -18,8 +18,8 @@ public class WalkState : IState
 
     public void Stay()
     {
-        player.Move(player.WalkSpeed);
-        //enumÀ» ¾Æ¿¹ ÅëÂ°·Î °ü¸®ÇÏ´ø°¡ ÇØ¾ß ÇÒ µí.
+        player.Controller.Move(player.Controller.WalkSpeed);
+        //enumì„ ì•„ì˜ˆ í†µì§¸ë¡œ ê´€ë¦¬í•˜ë˜ê°€ í•´ì•¼ í•  ë“¯.
         player.AnimationController.SetState(PlayerAnimationController.PlayerAnimState.Walk);
 
         if (InputManager.IsLeftClicked)
@@ -27,7 +27,7 @@ public class WalkState : IState
             player.TryAttack();
         }
 
-        if (playerGroundChecker.IsGrounded && InputManager.IsJump)
+        if (player.GroundChecker.IsGrounded && InputManager.IsJump)
         {
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.JumpState);
             return;
@@ -37,7 +37,7 @@ public class WalkState : IState
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.IdleState);
             return;
         }
-        if (InputManager.Movement.y < 0 && playerGroundChecker.IsGrounded)
+        if (InputManager.Movement.y < 0 && player.GroundChecker.IsGrounded)
         {
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.DuckState);
         }

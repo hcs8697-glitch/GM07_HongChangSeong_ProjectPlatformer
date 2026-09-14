@@ -1,19 +1,19 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-//Á¡ÇÁ¸¦ ÇÒ ¼ö ÀÖ´ÂÁö ¾ø´ÂÁö¸¦ ÆÇº°ÇÏ°Ô ÇÒ ½ºÅ©¸³Æ®
-//¸¸¾à Àûµµ Á¡ÇÁ¸¦ ÇÒ ¼ö ÀÖ´Ù¸é, ÇÃ·¹ÀÌ¾î¸¦ Á÷Á¢ ÂüÁ¶ÇÏÁö ¾Ê´Â ÇüÅÂÀÌ±â ¶§¹®¿¡ »ç¿ë °¡´ÉÇÏ´Ù.
+//ì í”„ë¥¼ í•  ìˆ˜ ìˆëŠ”ì§€ ì—†ëŠ”ì§€ë¥¼ íŒë³„í•˜ê²Œ í•  ìŠ¤í¬ë¦½íŠ¸
+//ë§Œì•½ ì ë„ ì í”„ë¥¼ í•  ìˆ˜ ìˆë‹¤ë©´, í”Œë ˆì´ì–´ë¥¼ ì§ì ‘ ì°¸ì¡°í•˜ì§€ ì•ŠëŠ” í˜•íƒœì´ê¸° ë•Œë¬¸ì— ì‚¬ìš© ê°€ëŠ¥í•˜ë‹¤.
 public class GroundChecker : MonoBehaviour
 {
-    [Header("±×¶ó¿îµå Ã¼Å© ¿µ¿ª Á¶Àı")]
-    [SerializeField] private float checkerSize1 = 0.3f; //¹Ù´ÚÃ¼Å©¿ë ¹Ú½º Å©±â
+    [Header("ê·¸ë¼ìš´ë“œ ì²´í¬ ì˜ì—­ ì¡°ì ˆ")]
+    [SerializeField] private float checkerSize1 = 0.3f; //ë°”ë‹¥ì²´í¬ìš© ë°•ìŠ¤ í¬ê¸°
     [SerializeField] private float checkerSize2 = 0.3f; 
-    [SerializeField] private float checkerSize3 = 1.0f; //¾Æ¸¶µµ ÀÌ°Ç °ÇµéÁö ¾ÊÀ» µí.
-    [Header("Å½»öÇÒ ·¹ÀÌ¾î")]
+    [SerializeField] private float checkerSize3 = 1.0f; //ì•„ë§ˆë„ ì´ê±´ ê±´ë“¤ì§€ ì•Šì„ ë“¯.
+    [Header("íƒìƒ‰í•  ë ˆì´ì–´")]
     [SerializeField] private LayerMask groundLayers;
 
-    public bool IsGrounded { get; private set; } //ÀÌ ½ºÅ©¸³Æ®¸¦ Àûµµ »ç¿ëÇÏ·Á¸é staticÀÌ ¾Æ´Ï¾î¾ß ÇÑ´Ù.
+    public bool IsGrounded { get; private set; } //ì´ ìŠ¤í¬ë¦½íŠ¸ë¥¼ ì ë„ ì‚¬ìš©í•˜ë ¤ë©´ staticì´ ì•„ë‹ˆì–´ì•¼ í•œë‹¤.
 
-    private Vector3 checkerSize;
+    private Vector3 checkerSize; //ìœ„ì˜ checkerSize1~3ê¹Œì§€ëŠ” ëŒ€ì²´ ì™œ ìˆëŠ” ê±°ì§€? ê·¸ëƒ¥ ì´ê±° SerializeField í•˜ë©´ ë˜ëŠ”ë°?
 
     private void Awake()
     {
@@ -41,7 +41,7 @@ public class GroundChecker : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (IsGrounded == false) //¶¥¿¡ ¾ø´Â »óÅÂ
+        if (IsGrounded == false) //ë•…ì— ì—†ëŠ” ìƒíƒœ
         {
             Gizmos.color = Color.red;
         }
