@@ -17,9 +17,15 @@
 public class WallChecker : MonoBehaviour
 {
     [Header("벽 체크 영역 조절")]
-    [SerializeField]private Vector3 checkerSize;
+    [SerializeField] private Vector2 checkerOffset;
+    [SerializeField] private Vector2 checkerSize;
+  
     [Header("탐색할 레이어")]
     [SerializeField] private LayerMask groundLayers; //wall 레이어를 따로 만들 이유가 있을까 싶은데?
+
+    //private Vector2 center;
+
+    
 
     private PlayerController controller; //이거를 그라운드체커를 그냥 체커로 바꾸고 이걸 추가하는게? 그래야 GetComponent하기 편한데
 
@@ -57,7 +63,12 @@ public class WallChecker : MonoBehaviour
 
     private void CheckWall()
     {
-        Collider2D hit = Physics2D.OverlapBox(transform.position, checkerSize, 0f, groundLayers);
+        //오브젝트의 원위치를 기준으로, 사용자가 설정한 오프셋만큼 떨어져서 생성된다. 추가로 방향도 받아온다.
+        Vector2 center = (Vector2)transform.position + new Vector2(checkerOffset.x * controller.FacingDirection, checkerOffset.y);
+
+
+
+        Collider2D hit = Physics2D.OverlapBox(center, checkerSize, 0f, groundLayers);
 
         //벽을 검출했다면 true, 검출하지 못했다면 false 반환
         if(hit == true)
@@ -68,8 +79,6 @@ public class WallChecker : MonoBehaviour
         {
             IsWall = false;
         }
-
-
     }
 
 
@@ -77,6 +86,8 @@ public class WallChecker : MonoBehaviour
     private void OnDrawGizmos()
     {
         if (controller == null) return;
+
+        Vector2 center = (Vector2)transform.position + new Vector2(checkerOffset.x * controller.FacingDirection, checkerOffset.y);
 
         if (!IsWall)
         {
@@ -88,7 +99,7 @@ public class WallChecker : MonoBehaviour
             Gizmos.color = Color.green;
         }
 
-        //Gizmos.DrawWireCube(transform.position)
+        Gizmos.DrawWireCube(center, checkerSize);
 
     }
 
