@@ -11,7 +11,7 @@ public class FallState : IState
 
     public void Enter()
     {
-
+   
     }
 
     public void Stay()

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 
 //플레이어의 상태를 관장하는 최상위클래스
 //상태머신을 만들 때, 이 클래스만 생성자로 전달하고, 나머지는 player. 이런 식으로 호출하는 구조를 만든다.
@@ -82,6 +83,23 @@ public class Player : MonoBehaviour
             case false:
                 break;
         }
+    }
+
+    //각 상태에 따라 다른 공격을 실행하게 할 메서드
+    public void TryAttack(IState state)
+    {
+        //스위치문으로 하는 게 안 될 것 같다. 일단 들어온 state를 다운캐스팅해야 하지 않을까?
+
+        if (state == null) return;
+
+        //이런 식으로 해야 하나?
+        if(state is FallState)
+        {
+
+        }
+
+
+
     }
 
 
