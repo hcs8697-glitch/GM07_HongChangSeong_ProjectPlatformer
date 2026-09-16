@@ -10,8 +10,10 @@ public class SimplePlayerStateMachine
     public WalkState WalkState { get; private set; }
     public JumpState JumpState { get; private set; }
     public DuckState DuckState { get; private set; }
+    
 
     public Duck_WalkState Duck_WalkState { get; private set; }
+    public FallState FallState { get; private set; }
 
     public event Action<IState> stateChanged;
 
@@ -22,6 +24,7 @@ public class SimplePlayerStateMachine
         JumpState = new JumpState(player);
         DuckState = new DuckState(player);
         Duck_WalkState = new Duck_WalkState(player);
+        FallState = new FallState(player);
     }
 
     public void Initialize(IState state)

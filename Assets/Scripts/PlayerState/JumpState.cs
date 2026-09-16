@@ -26,9 +26,18 @@ public class JumpState : IState
             player.TryAttack();
         }
 
+
+        if (player.Controller.Rb.linearVelocity.y < 0)
+        {
+            player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.FallState);
+            return;
+        }
+
         if (!player.GroundChecker.IsGrounded) return;
 
         if (player.Controller.Rb.linearVelocity.y > 0) return;
+
+
 
         if (InputManager.Movement.x != 0)
         {

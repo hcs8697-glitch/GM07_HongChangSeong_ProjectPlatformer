@@ -37,6 +37,13 @@ public class WalkState : IState
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.IdleState);
             return;
         }
+
+        if (player.Controller.Rb.linearVelocity.y < 0)
+        {
+            player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.FallState);
+            return;
+        }
+
         if (InputManager.Movement.y < 0 && player.GroundChecker.IsGrounded)
         {
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.DuckState);
