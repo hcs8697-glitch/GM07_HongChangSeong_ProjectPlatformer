@@ -28,7 +28,14 @@ public class DuckState : IState
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.IdleState);
             return;
         }
-        if(InputManager.Movement.x != 0)
+
+        if (player.Controller.Rb.linearVelocity.y < 0)
+        {
+            player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.FallState);
+            return;
+        }
+
+        if (InputManager.Movement.x != 0)
         {
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.Duck_WalkState);            
         }

@@ -27,7 +27,7 @@ public class WallChecker : MonoBehaviour
 
     
 
-    private PlayerController controller; //이거를 그라운드체커를 그냥 체커로 바꾸고 이걸 추가하는게? 그래야 GetComponent하기 편한데
+    [SerializeField]private PlayerController controller; //이거를 그라운드체커를 그냥 체커로 바꾸고 이걸 추가하는게? 그래야 GetComponent하기 편한데
 
 
     public bool IsWall { get; private set; }

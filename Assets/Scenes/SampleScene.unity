@@ -1494,6 +1494,7 @@ MonoBehaviour:
   groundLayers:
     serializedVersion: 2
     m_Bits: 64
+  controller: {fileID: 1617652128}
 --- !u!1 &886439680
 GameObject:
   m_ObjectHideFlags: 0

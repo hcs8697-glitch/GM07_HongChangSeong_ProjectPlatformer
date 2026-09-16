@@ -69,6 +69,22 @@ public class Player : MonoBehaviour
         AudioManager.Instance.PlaySFX(ESfx.SFX_Attack);
     }
 
+
+    //true를 넣으면 컬라이더의 y축값을 반토막내고, false를 넣으면 원래대로 돌아오게 할 메서드
+    //Duck 관련 상태의 Enter에서 true를 넣고, Exit에서 false를 넣는 식으로 하면 될 것 같긴 함.
+    //TODO : Collider를 여기서 필드로 갖게.
+    public void SetDuck(bool toggle)
+    {
+        switch(toggle)
+        {
+            case true:
+                break;
+            case false:
+                break;
+        }
+    }
+
+
     //초기 실행될 때, 필요한 컴포넌트를 추가하고, 추가하지 못했다면 오류를 제공할 메서드
     //TryGetComponent를 사용하여, 오류 문구를 출력하게 하거나, 이 메서드가 반환값이 bool이어서, false면 뭔가 실행 안 되게끔
 
