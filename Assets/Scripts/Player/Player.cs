@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 
 //플레이어의 상태를 관장하는 최상위클래스
 //상태머신을 만들 때, 이 클래스만 생성자로 전달하고, 나머지는 player. 이런 식으로 호출하는 구조를 만든다.
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour
     private PlayerHealth health;
     private PlayerController controller;
     private GroundChecker groundChecker;
+    private WallChecker wallChecker;
     private SimplePlayerStateMachine playerStateMachine;
 
     //프로퍼티
@@ -31,6 +33,7 @@ public class Player : MonoBehaviour
     public PlayerHealth Health => health;
     public PlayerController Controller => controller;
     public GroundChecker GroundChecker => groundChecker;
+    public WallChecker WallChecker => wallChecker;
     public SimplePlayerStateMachine PlayerStateMachine => playerStateMachine;
 
 
@@ -84,22 +87,52 @@ public class Player : MonoBehaviour
         }
     }
 
+    //Climb 상태와 관련된 곳의 Enter, Exit에서 실행하여, 벽에 달라붙는 상태를 제어할 메서드
+    public void SetClimb(bool toggle)
+    {
+        switch (toggle)
+        {
+            case true:
+                controller.Rb.gravityScale = 0;
+                controller.Rb.linearVelocityY = 0;
+                break;
+            case false:
+                controller.Rb.gravityScale = controller.OriginalGravity;
+                break;
+        }
+    }
+
+
+    //각 상태에 따라 다른 공격을 실행하게 할 메서드
+    public void TryAttack(IState state)
+    {
+        //스위치문으로 하는 게 안 될 것 같다. 일단 들어온 state를 다운캐스팅해야 하지 않을까?
+
+        if (state == null) return;
+
+        //이런 식으로 해야 하나?
+        if(state is FallState)
+        {
+
+        }
+
+
+
+    }
+
 
     //초기 실행될 때, 필요한 컴포넌트를 추가하고, 추가하지 못했다면 오류를 제공할 메서드
     //TryGetComponent를 사용하여, 오류 문구를 출력하게 하거나, 이 메서드가 반환값이 bool이어서, false면 뭔가 실행 안 되게끔
 
     private void EnsureComponents()
-    {
-        
-
-
-
+    {      
 
         animationController = GetComponent<PlayerAnimationController>();
         controller = GetComponent<PlayerController>();
         health = GetComponent<PlayerHealth>();
         attack = GetComponent<PlayerAttack>();
         groundChecker = GetComponentInChildren<GroundChecker>();
+        wallChecker = GetComponentInChildren<WallChecker>();
 
     }
 

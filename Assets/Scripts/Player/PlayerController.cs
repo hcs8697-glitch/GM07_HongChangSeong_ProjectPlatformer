@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     private Rigidbody2D rb;
+    private float originalGravity;
 
 
 
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
     public float DuckWalkSpeed => duckWalkSpeed;
     public float AirWalkSpeed => airWalkSpeed;
     public Rigidbody2D Rb => rb;
+    public float OriginalGravity => originalGravity;
 
 
 
@@ -45,6 +47,11 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if(rb != null)
+        {
+            originalGravity = rb.gravityScale;
+        }
     }
 
 
