@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     private PlayerHealth health;
     private PlayerController controller;
     private GroundChecker groundChecker;
+    private WallChecker wallChecker;
     private SimplePlayerStateMachine playerStateMachine;
 
     //프로퍼티
@@ -32,6 +33,7 @@ public class Player : MonoBehaviour
     public PlayerHealth Health => health;
     public PlayerController Controller => controller;
     public GroundChecker GroundChecker => groundChecker;
+    public WallChecker WallChecker => wallChecker;
     public SimplePlayerStateMachine PlayerStateMachine => playerStateMachine;
 
 
@@ -85,6 +87,22 @@ public class Player : MonoBehaviour
         }
     }
 
+    //Climb 상태와 관련된 곳의 Enter, Exit에서 실행하여, 벽에 달라붙는 상태를 제어할 메서드
+    public void SetClimb(bool toggle)
+    {
+        switch (toggle)
+        {
+            case true:
+                controller.Rb.gravityScale = 0;
+                controller.Rb.linearVelocityY = 0;
+                break;
+            case false:
+                controller.Rb.gravityScale = controller.OriginalGravity;
+                break;
+        }
+    }
+
+
     //각 상태에 따라 다른 공격을 실행하게 할 메서드
     public void TryAttack(IState state)
     {
@@ -107,17 +125,14 @@ public class Player : MonoBehaviour
     //TryGetComponent를 사용하여, 오류 문구를 출력하게 하거나, 이 메서드가 반환값이 bool이어서, false면 뭔가 실행 안 되게끔
 
     private void EnsureComponents()
-    {
-        
-
-
-
+    {      
 
         animationController = GetComponent<PlayerAnimationController>();
         controller = GetComponent<PlayerController>();
         health = GetComponent<PlayerHealth>();
         attack = GetComponent<PlayerAttack>();
         groundChecker = GetComponentInChildren<GroundChecker>();
+        wallChecker = GetComponentInChildren<WallChecker>();
 
     }
 
