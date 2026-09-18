@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float duckWalkSpeed = 3.3f;
     [SerializeField] private float airWalkSpeed = 5.0f;
     [SerializeField] private float jumpPower = 6.0f;
-
+    [SerializeField] private float climbSpeed = 5.0f;
 
     //PlayerController가 이제는 PlayerAttack이랑, AnimationController를 알 필요가 없다. 다 지워야 할 것?
     //다만, 현 시점에서 "점프"의 경우는 알아야 하는 거 같은데... 이것도 그냥 점프 로직만 여기서 제공하고 제약을 상태머신에서 관리하는 게 맞지 않나
@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
     public float WalkSpeed => walkSpeed;
     public float DuckWalkSpeed => duckWalkSpeed;
     public float AirWalkSpeed => airWalkSpeed;
+
+    public float ClimbSpeed => climbSpeed;
     public Rigidbody2D Rb => rb;
     public float OriginalGravity => originalGravity;
 
@@ -57,6 +59,8 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        
+
         if(InputManager.Movement.x>0)
         {
             spriteRenderer.flipX = true;
@@ -74,6 +78,13 @@ public class PlayerController : MonoBehaviour
         float moveX = InputManager.Movement.x; //입력 값에서 x축만 가져옴.
 
         rb.linearVelocityX = moveX * moveSpeed;
+    }
+
+    public void ClimbWall(float climbSpeed)
+    {
+        float moveY = InputManager.Movement.y;
+
+        rb.linearVelocityY = moveY * climbSpeed;
     }
 
     //이거를 컨트롤러가 제공하는 게 맞나? 아니면 퍼사드에서 조립할까?

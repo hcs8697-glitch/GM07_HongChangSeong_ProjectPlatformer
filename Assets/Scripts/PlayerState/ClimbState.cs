@@ -25,10 +25,22 @@ public class ClimbState : IState
             return;
         }
 
+        //벽을 감지하지 못했을 때 전환도 해야 함.
+
+
         if(InputManager.IsJump)
         {
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.JumpState);
+            return;
         }
+
+        if(InputManager.Movement.y != 0)
+        {
+            player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.Climb_WalkState);
+            return;
+        }
+
+
     }
 
     public void Exit()
