@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     private GroundChecker groundChecker;
     private WallChecker wallChecker;
     private SimplePlayerStateMachine playerStateMachine;
+    
 
     //프로퍼티
     public PlayerAnimationController AnimationController => animationController;
@@ -35,6 +36,7 @@ public class Player : MonoBehaviour
     public GroundChecker GroundChecker => groundChecker;
     public WallChecker WallChecker => wallChecker;
     public SimplePlayerStateMachine PlayerStateMachine => playerStateMachine;
+    
 
 
 
@@ -76,25 +78,26 @@ public class Player : MonoBehaviour
     //true를 넣으면 컬라이더의 y축값을 반토막내고, false를 넣으면 원래대로 돌아오게 할 메서드
     //Duck 관련 상태의 Enter에서 true를 넣고, Exit에서 false를 넣는 식으로 하면 될 것 같긴 함.
     //TODO : Collider를 여기서 필드로 갖게.
+    //이것도 이하의 SetClimb와 마찬가지로 로직은 다른 곳에서 들고 있고, 여기서 사운드만 조립하는 식으로 변경해야 함.
+    //딸랑 이거 한 줄만 적어도 되는 건데, 그럴 거면 PlayerController에 있는 메서드를 호출하는 게 맞지 않나?
+    //근데 여기에 컬라이더 수치나 이런 거 넣는거도 애매하지.
+    //얘는 그냥 다른 클래스들만 들고 있어야지 수치 조절을 제어하는 클래스가 되선 안 됨.
     public void SetDuck(bool toggle)
     {
-        switch(toggle)
-        {
-            case true:
-                break;
-            case false:
-                break;
-        }
+        controller.Duck(toggle);
     }
 
     //Climb 상태와 관련된 곳의 Enter, Exit에서 실행하여, 벽에 달라붙는 상태를 제어할 메서드
+    //원래라면 이 메서드는 PlayerController가 들고 있고, 여기서는 사운드만 이 메서드랑 조립해서 TryClimb이런식으로 조립해야 할 것
+    //이 두 메서드는 사실 Enter, Exit에서만 호출되기 때문에 애니메이션까지 조립해선 안 됨.
+
     public void SetClimb(bool toggle)
     {
         switch (toggle)
         {
             case true:
                 controller.Rb.gravityScale = 0;
-                controller.Rb.linearVelocityY = 0;
+                controller.Rb.linearVelocity = new Vector2(0,0);
                 break;
             case false:
                 controller.Rb.gravityScale = controller.OriginalGravity;
@@ -116,6 +119,19 @@ public class Player : MonoBehaviour
 
         }
 
+        //아니면 이런 식으로도 할 수 있겠지
+
+        if(controller.IsDucking)
+        {
+            //숙였을 때의 공격
+        }
+
+        if(!groundChecker.IsGrounded)
+        {
+            //공중 공격
+        }
+
+        
 
 
     }
@@ -133,6 +149,7 @@ public class Player : MonoBehaviour
         attack = GetComponent<PlayerAttack>();
         groundChecker = GetComponentInChildren<GroundChecker>();
         wallChecker = GetComponentInChildren<WallChecker>();
+
 
     }
 

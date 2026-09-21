@@ -40,6 +40,8 @@ public class ClimbState : IState
             return;
         }
 
+        //여기에서 만약에 현재 바라보고 있는 키를 오래 누르면, FallState로 전환
+
 
     }
 

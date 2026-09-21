@@ -11,7 +11,8 @@ public class FallState : IState
 
     public void Enter()
     {
-   
+        Debug.Log("FallState 진입");
+
     }
 
     public void Stay()
