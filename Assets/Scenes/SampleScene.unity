@@ -2404,7 +2404,12 @@ MonoBehaviour:
   duckWalkSpeed: 3.3
   airWalkSpeed: 5
   jumpPower: 6
+  climbSpeed: 5
   groundChecker: {fileID: 1107434915}
+  wallChecker: {fileID: 816893164}
+  originalColSize: {x: 0, y: 0}
+  originalColOffset: {x: 0, y: 0}
+  duckColY: 1
 --- !u!50 &1617652129
 Rigidbody2D:
   serializedVersion: 5

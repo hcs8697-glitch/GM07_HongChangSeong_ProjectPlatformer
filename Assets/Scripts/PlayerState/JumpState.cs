@@ -12,8 +12,8 @@ public class JumpState : IState
 
     public void Enter()
     {
-        Debug.Log("JumpState");
-        player.Controller.Jump();
+        Debug.Log("JumpState 진입");
+        player.TryJump(player.PlayerStateMachine.PreviousState);
         player.AnimationController.SetState(PlayerAnimationController.PlayerAnimState.Jump);
     }
 
@@ -36,14 +36,14 @@ public class JumpState : IState
             return;
         }
 
-        //플레이어가 땅이 아닌 상태라면 점프 도중에 실행해야 하는 것들을 실행하지 않는다? 
+        //플레이어가 땅이 아닌 상태라면 점프 도중에 실행해야 하는 것들을 실행하지 않는다 
         if (!player.GroundChecker.IsGrounded) return;
 
-        //플레이어가 상승중이라면 이하의 코드들을 실행하지 않는다. 이 코드들 굳이 필요해? 아니면 조건이 이상한듯.
+        //플레이어가 상승중이라면 이하의 코드들을 실행하지 않는다. 
         if (player.Controller.Rb.linearVelocity.y > 0) return;
 
 
-        //이거는... 글쎄? 애초에 여기에서 GroundChecker까지 같이 묶어서 땅이고 이동중일 때 전환하게 하는 것이 맞지?
+        //위를 전부 통과했다 = linearVelocity가 0 이하이고, 땅을 감지했다.
         if (InputManager.Movement.x != 0)
         {
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.WalkState);

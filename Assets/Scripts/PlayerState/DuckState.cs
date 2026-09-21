@@ -11,7 +11,8 @@ public class DuckState : IState
 
     public void Enter()
     {
-        Debug.Log("DuckState");
+        Debug.Log("DuckState 진입");
+        player.SetDuck(true);
     }
 
     public void Stay()
@@ -44,7 +45,7 @@ public class DuckState : IState
 
     public void Exit()
     {
-
+        player.SetDuck(false);
     }
 
 }

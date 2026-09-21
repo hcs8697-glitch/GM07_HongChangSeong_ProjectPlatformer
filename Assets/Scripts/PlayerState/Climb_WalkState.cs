@@ -1,0 +1,55 @@
+﻿using UnityEngine;
+
+public class Climb_WalkState : IState
+{
+    private Player player;
+
+
+    public Climb_WalkState(Player player)
+    {
+        this.player = player;
+    }
+
+
+    public void Enter()
+    {
+        player.SetClimb(true);
+    }
+
+    public void Stay()
+    {
+        player.Controller.ClimbWall(player.Controller.ClimbSpeed);
+
+        if (InputManager.IsJump)
+        {
+            player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.JumpState);
+            return;
+        }
+
+        if(InputManager.Movement.y == 0)
+        {
+            player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.ClimbState);
+            return;
+        }
+
+        //전환조건을 더 신경써야 함. 이 상태라면 벽을 바라보지 않은 상태에도 점프해버림
+        if (!player.WallChecker.IsWall && InputManager.Movement.y >0)
+        {
+            player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.JumpState);
+            return;
+        }
+
+        if (!player.WallChecker.IsWall && InputManager.Movement.y < 0)
+        {
+            player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.FallState);
+            return;
+        }
+
+
+    }
+
+    public void Exit()
+    {
+        player.SetClimb(false);
+    }
+}

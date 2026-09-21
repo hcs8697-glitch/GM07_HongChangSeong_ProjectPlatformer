@@ -14,7 +14,7 @@ public class Duck_WalkState : IState
 
     public void Enter()
     {
-
+        player.SetDuck(true);
     }
 
     public void Stay()
@@ -47,6 +47,6 @@ public class Duck_WalkState : IState
 
     public void Exit()
     {
-
+        player.SetDuck(false);
     }
 }
