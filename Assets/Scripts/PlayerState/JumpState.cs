@@ -13,7 +13,7 @@ public class JumpState : IState
     public void Enter()
     {
         Debug.Log("JumpState 진입");
-        player.Controller.Jump();
+        player.TryJump(player.PlayerStateMachine.PreviousState);
         player.AnimationController.SetState(PlayerAnimationController.PlayerAnimState.Jump);
     }
 

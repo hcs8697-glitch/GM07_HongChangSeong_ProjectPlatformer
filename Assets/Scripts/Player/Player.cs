@@ -105,6 +105,22 @@ public class Player : MonoBehaviour
         }
     }
 
+    //이전 상태에 따라 다른 점프로직을 실행할 메서드
+    //현 시점에선 사실, 벽에 붙어있는지 아닌지만 상관있긴 한데
+    public void TryJump(IState previousState)
+    {
+        AudioManager.Instance.PlaySFX(ESfx.SFX_Jump);
+        if (previousState == playerStateMachine.ClimbState)
+        {
+            controller.WallJump();
+        }
+        else
+        {
+            controller.Jump();
+        }
+    }
+
+
 
     //각 상태에 따라 다른 공격을 실행하게 할 메서드
     public void TryAttack(IState state)

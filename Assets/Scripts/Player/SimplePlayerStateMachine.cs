@@ -6,6 +6,7 @@ public class SimplePlayerStateMachine
 {
     public IState CurrentState { get; private set; }
 
+    public IState PreviousState { get; private set; }
     public IdleState IdleState { get; private set; }
     public WalkState WalkState { get; private set; }
     public JumpState JumpState { get; private set; }
@@ -43,6 +44,8 @@ public class SimplePlayerStateMachine
         if (CurrentState == nextState) return;
 
         CurrentState.Exit();
+
+        PreviousState = CurrentState;
 
         CurrentState = nextState;
 

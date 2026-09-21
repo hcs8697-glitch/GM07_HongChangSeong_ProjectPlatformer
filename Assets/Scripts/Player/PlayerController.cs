@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
 
 
     //PlayerAttack 등에게 바라보고 있는 방향을 전달할 프로퍼티
-    public int FacingDirection { get; private set; } = 1;
+    [field : SerializeField]public int FacingDirection { get; private set; } = 1;
 
 
     private void Awake()
@@ -147,8 +147,7 @@ public class PlayerController : MonoBehaviour
                 col.size = new Vector2(originalColSize.x, duckColY);
                 float offsetY = (duckColY - originalColSize.y) * 0.5f;
                 col.offset = new Vector2(originalColOffset.x, originalColOffset.y + offsetY);
-                isDucking = true;
-                //TODO : 오프셋도 조절하기
+                isDucking = true;                
                 break;
              case false:
                 col.size = originalColSize;
@@ -161,9 +160,16 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
-            AudioManager.Instance.PlaySFX(ESfx.SFX_Jump);
-            isDucking = false;
-            rb.linearVelocityY = jumpPower;
+        Debug.Log("일반점프");
+        isDucking = false;
+         rb.linearVelocityY = jumpPower;
+    }
+
+    public void WallJump()
+    {
+        Debug.Log("벽점프");
+        isDucking = false;
+        rb.linearVelocity = new Vector2(-FacingDirection*jumpPower, jumpPower);
     }
 
 
