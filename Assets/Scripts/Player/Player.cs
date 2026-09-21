@@ -120,6 +120,10 @@ public class Player : MonoBehaviour
         }
     }
 
+    //TryMove메서드 만들 거면, Move와 ClimbWall을 조립하고, Istate와 float(속도)를 매개변수로 받고 this를 넣으면 될 것 같다.
+    //그리고, 올라갈 때와 내려갈 때 애니메이션 다르게 하는 건 새로운 상태 파지 말고
+    //InputManager.movement.y값을 검사해서 다른 애니메이션 실행하게 하면 될 듯?
+
 
 
     //각 상태에 따라 다른 공격을 실행하게 할 메서드

@@ -170,12 +170,8 @@ public class PlayerController : MonoBehaviour
         Debug.Log("벽점프");
         isDucking = false;
         rb.linearVelocity = new Vector2(-FacingDirection*jumpPower, jumpPower);
-    }
 
-
-
-    private void OnDrawGizmos()
-    {
         
     }
+
 }
