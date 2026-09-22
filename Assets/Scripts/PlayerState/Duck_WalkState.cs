@@ -19,8 +19,10 @@ public class Duck_WalkState : IState
 
     public void Stay()
     {
-        player.Controller.Move(player.Controller.DuckWalkSpeed);
-        player.AnimationController.SetState(PlayerAnimationController.PlayerAnimState.Duck_Walk);
+         player.Controller.Move(player.Controller.DuckWalkSpeed);
+         player.AnimationController.SetState(PlayerAnimationController.PlayerAnimState.Duck_Walk);
+ 
+
 
         if (InputManager.IsLeftClicked)
         {
@@ -39,7 +41,7 @@ public class Duck_WalkState : IState
             return;
         }
 
-        if (InputManager.Movement.y >= 0)
+        if (InputManager.Movement.y >= 0 && !player.CeilChecker.IsCeil)
         {
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.IdleState);
         }

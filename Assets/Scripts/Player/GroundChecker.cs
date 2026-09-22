@@ -20,7 +20,7 @@ public class GroundChecker : MonoBehaviour
         checkerSize = new Vector3(checkerSize1, checkerSize2, checkerSize3);
     }
 
-    void FixedUpdate()
+    void Update()
     {
         CheckGround();
     }

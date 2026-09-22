@@ -47,8 +47,9 @@ public class WallChecker : MonoBehaviour
     }
 
 
-    void FixedUpdate()
+    void Update()
     {
+        
         CheckWall();
     }
 
@@ -63,6 +64,16 @@ public class WallChecker : MonoBehaviour
 
     private void CheckWall()
     {
+        //숙임 상태라면 벽을 감지하지 않는다. 벽감지를 끄는 것이므로 IsWall도 false로 전환한다?
+        if (controller.IsDucking)
+        {
+            IsWall = false;
+            return;
+        }
+
+
+
+
         //오브젝트의 원위치를 기준으로, 사용자가 설정한 오프셋만큼 떨어져서 생성된다. 추가로 방향도 받아온다.
         Vector2 center = (Vector2)transform.position + new Vector2(checkerOffset.x * controller.FacingDirection, checkerOffset.y);
 
@@ -86,6 +97,8 @@ public class WallChecker : MonoBehaviour
     private void OnDrawGizmos()
     {
         if (controller == null) return;
+
+        if (controller.IsDucking) return;
 
         Vector2 center = (Vector2)transform.position + new Vector2(checkerOffset.x * controller.FacingDirection, checkerOffset.y);
 

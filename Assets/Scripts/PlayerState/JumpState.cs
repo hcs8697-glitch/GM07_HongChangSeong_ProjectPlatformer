@@ -20,7 +20,11 @@ public class JumpState : IState
     public void Stay()
     {
         //점프 중에는 공중 이동속도로 이동할 수 있다.
-        player.Controller.Move(player.Controller.AirWalkSpeed);
+        if(InputManager.Movement.x != 0)
+        {
+            player.Controller.Move(player.Controller.AirWalkSpeed);
+        }
+
 
         //점프 중에는 공격을 시도할 수 있다.
         if (InputManager.IsLeftClicked)
