@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     private PlayerController controller;
     private GroundChecker groundChecker;
     private WallChecker wallChecker;
+    private CeilChecker ceilChecker;
     private SimplePlayerStateMachine playerStateMachine;
     
 
@@ -35,6 +36,7 @@ public class Player : MonoBehaviour
     public PlayerController Controller => controller;
     public GroundChecker GroundChecker => groundChecker;
     public WallChecker WallChecker => wallChecker;
+    public CeilChecker CeilChecker => ceilChecker;
     public SimplePlayerStateMachine PlayerStateMachine => playerStateMachine;
     
 
@@ -169,6 +171,7 @@ public class Player : MonoBehaviour
         attack = GetComponent<PlayerAttack>();
         groundChecker = GetComponentInChildren<GroundChecker>();
         wallChecker = GetComponentInChildren<WallChecker>();
+        ceilChecker = GetComponentInChildren<CeilChecker>();
 
 
     }

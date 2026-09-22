@@ -1,12 +1,12 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
     [SerializeField] private Transform targetTransform;
 
-    void Update()
+    void LateUpdate()
     {
         if (targetTransform == null) return;
-        transform.position = new Vector3(targetTransform.position.x, transform.position.y, -10);
+        transform.position = new Vector3(targetTransform.position.x, targetTransform.position.y+3, -10);
     }
 }

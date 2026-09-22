@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float airWalkSpeed = 5.0f;
     [SerializeField] private float jumpPower = 6.0f;
     [SerializeField] private float climbSpeed = 5.0f;
+    private Vector2 wallJumpPower;
 
     //PlayerController가 이제는 PlayerAttack이랑, AnimationController를 알 필요가 없다. 다 지워야 할 것?
     //다만, 현 시점에서 "점프"의 경우는 알아야 하는 거 같은데... 이것도 그냥 점프 로직만 여기서 제공하고 제약을 상태머신에서 관리하는 게 맞지 않나
@@ -73,6 +74,8 @@ public class PlayerController : MonoBehaviour
             originalColSize = col.size;
             originalColOffset = col.offset;
         }
+
+        
     }
 
 
@@ -162,16 +165,25 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("일반점프");
         isDucking = false;
-         rb.linearVelocityY = jumpPower;
+        //rb.linearVelocityY = jumpPower;
+        rb.AddForceY(jumpPower, ForceMode2D.Impulse);
+
     }
 
+    //가하는 힘 계산은 정상적으로 이루어지는데 어째 안정적으로 동작하지 않음.
+    //=> Move가 0일 때도 동작해서 x값을 덧씌워버렸던 것.
     public void WallJump()
     {
         Debug.Log("벽점프");
         isDucking = false;
-        rb.linearVelocity = new Vector2(-FacingDirection*jumpPower, jumpPower);
+        //rb.linearVelocity = new Vector2(-FacingDirection*jumpPower, jumpPower);
 
+        Debug.Log($"가하는 힘 {-FacingDirection * jumpPower * 10}");
+
+        wallJumpPower = new Vector2(-FacingDirection*jumpPower, jumpPower);
+        rb.AddForce(wallJumpPower, ForceMode2D.Impulse);
         
+        //rb.AddForce(new Vector2(-FacingDirection * jumpPower*10, jumpPower), ForceMode2D.Impulse);
     }
 
 }

@@ -18,9 +18,10 @@ public class WalkState : IState
 
     public void Stay()
     {
-        player.Controller.Move(player.Controller.WalkSpeed);
-        //enum을 아예 통째로 관리하던가 해야 할 듯.
-        player.AnimationController.SetState(PlayerAnimationController.PlayerAnimState.Walk);
+
+         player.Controller.Move(player.Controller.WalkSpeed);
+         player.AnimationController.SetState(PlayerAnimationController.PlayerAnimState.Walk);
+
 
         if (InputManager.IsLeftClicked)
         {

@@ -17,7 +17,9 @@ public class FallState : IState
 
     public void Stay()
     {
+   
         player.Controller.Move(player.Controller.AirWalkSpeed);
+
 
         if (InputManager.IsLeftClicked)
         {

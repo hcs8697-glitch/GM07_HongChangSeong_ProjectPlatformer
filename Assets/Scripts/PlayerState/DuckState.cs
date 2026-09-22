@@ -24,8 +24,8 @@ public class DuckState : IState
             player.TryAttack();
         }
 
-        //S키를 땠을 때 원래대로 돌아가게 한다.
-        if (InputManager.Movement.y >=0)
+        //S키를 땠을 때, 그리고 천장을 감지하지 못했을 때 원래대로 돌아가게 한다.
+        if (InputManager.Movement.y >=0 && !player.CeilChecker.IsCeil)
         {
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.IdleState);
             return;
