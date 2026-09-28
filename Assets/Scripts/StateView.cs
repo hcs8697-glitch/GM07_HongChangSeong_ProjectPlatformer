@@ -19,10 +19,19 @@ public class StateView : MonoBehaviour
 
     void Start()
     {
-        playerStateMachine = player.PlayerStateMachine;
-        enemyStateMachine = enemy.EnemyStateMachine;
-        playerStateMachine.stateChanged += OnStateChanged;
-        enemyStateMachine.enemyStateChanged += OnEnemyStateChanged;
+        if (player != null)
+        {
+            playerStateMachine = player.PlayerStateMachine;
+            playerStateMachine.stateChanged += OnStateChanged;
+        }
+
+
+        if (enemy != null)
+        {
+            enemyStateMachine = enemy.EnemyStateMachine;
+            enemyStateMachine.enemyStateChanged += OnEnemyStateChanged;
+        }
+
     }
 
     private void OnStateChanged(IState state)
