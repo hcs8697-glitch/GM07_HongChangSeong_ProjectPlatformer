@@ -14,6 +14,8 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     [Header("현재 체력")]
     private int currentHp;
 
+    public Team Team => Team.Player;
+
 
     //플레이어의 체력이 변화할 때 발행할 이벤트.
     public event Action playerHealthChanged;

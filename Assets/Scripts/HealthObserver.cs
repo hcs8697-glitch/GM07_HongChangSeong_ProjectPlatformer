@@ -27,7 +27,7 @@ public class HealthObserver : MonoBehaviour
 
         if(enemy != null)
         {
-            enemy.enemyHealthChanged += RefreshEnemyHealthText;
+            enemy.Health.enemyHealthChanged += RefreshEnemyHealthText;
             RefreshEnemyHealthText();
         }
 
@@ -44,7 +44,7 @@ public class HealthObserver : MonoBehaviour
     {
         if (enemy == null) return;
 
-        enemyHealthText.text = "Enemy : " + enemy.CurrentHp;
+        enemyHealthText.text = "Enemy : " + enemy.Health.CurrentHp;
     }
 
 
