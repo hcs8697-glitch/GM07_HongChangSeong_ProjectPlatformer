@@ -19,12 +19,18 @@ public class HealthObserver : MonoBehaviour
 
     private void Start() //이벤트부터 구독 후 Start에서 한 번 실행하여 체력을 반영한다. 그리고 이거... 방어코드 있어야 할 거 같은데
     {
-        player.Health.playerHealthChanged += RefreshHealthText;
-        enemy.enemyHealthChanged += RefreshEnemyHealthText;
+        if(player != null)
+        {
+            player.Health.playerHealthChanged += RefreshHealthText;
+            RefreshHealthText();
+        }
 
+        if(enemy != null)
+        {
+            enemy.Health.enemyHealthChanged += RefreshEnemyHealthText;
+            RefreshEnemyHealthText();
+        }
 
-        RefreshHealthText();
-        RefreshEnemyHealthText();
     }
 
     private void RefreshHealthText()
@@ -38,7 +44,7 @@ public class HealthObserver : MonoBehaviour
     {
         if (enemy == null) return;
 
-        enemyHealthText.text = "Enemy : " + enemy.CurrentHp;
+        enemyHealthText.text = "Enemy : " + enemy.Health.CurrentHp;
     }
 
 

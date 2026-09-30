@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -7,9 +7,9 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float moveSpeed = 5.0f; 
     [SerializeField] private PlayerChecker playerChecker;
 
-    [Header("ÆĞÆ®·Ñ °Å¸®")]
+    [Header("íŒ¨íŠ¸ë¡¤ ê±°ë¦¬")]
     [SerializeField] private Vector2 moveOffset = new Vector2(3.0f, 0.0f);
-    [Header("ÆĞÆ®·Ñ ÈÄ Idle")]
+    [Header("íŒ¨íŠ¸ë¡¤ í›„ Idle")]
     [SerializeField] private float waitTime = 2.0f;
    
     private WaitForSeconds wait;
@@ -27,13 +27,15 @@ public class EnemyController : MonoBehaviour
     public bool IsWaiting => isWaiting;
     public bool IsReturning => isReturning;
 
+    public int FacingDirection { get; private set; } = 1;
+
     public SimpleEnemyStateMachine EnemyStateMachine => enemyStateMachine;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerChecker = GetComponentInChildren<PlayerChecker>();
         startPosition = rb.position;
-        targetPosition = rb.position + moveOffset; //transform.positionÀº Vector3¶ó¼­ rb.positionÀ» ¾²´Â °Ô ¸ÂÀ»µí.
+        targetPosition = rb.position + moveOffset; //transform.positionì€ Vector3ë¼ì„œ rb.positionì„ ì“°ëŠ” ê²Œ ë§ì„ë“¯.
         enemyStateMachine = new SimpleEnemyStateMachine(this, playerChecker);
         wait = new WaitForSeconds(waitTime);
     }
@@ -54,7 +56,7 @@ public class EnemyController : MonoBehaviour
 
     private void Patrol()
     {
-        if (playerChecker.IsDetected || isWaiting) //´ë±âÁßÀÎ »óÅÂÀÌ°Å³ª ÇÃ·¹ÀÌ¾î¸¦ ¹ß°ßÇÑ »óÅÂ¿¡¼± ½ÇÇàµÇÁö ¾ÊÀ½.
+        if (playerChecker.IsDetected || isWaiting) //ëŒ€ê¸°ì¤‘ì¸ ìƒíƒœì´ê±°ë‚˜ í”Œë ˆì´ì–´ë¥¼ ë°œê²¬í•œ ìƒíƒœì—ì„  ì‹¤í–‰ë˜ì§€ ì•ŠìŒ.
             return;
 
         isReturning = false;
@@ -64,24 +66,25 @@ public class EnemyController : MonoBehaviour
             if(isMovingToTarget)
             {
                 destination = targetPosition;
+                FacingDirection = 1;
             }
             else
             {
                 destination = startPosition;
-            }
+                FacingDirection = -1;
+            }                               
 
-            //TODO : linearVelocity¸¦ ÀÌ¿ëÇÏ´Â ¹æÇâÀ¸·Î ¸®ÆÑÅä¸µ
-            //ÇöÀç´Â ±×³É 0605Homework¿¡¼­ ¹ßÆÇ ÄÚµå ±Ü¾î¿Â °É·Î ±¸ÇöµÊ.
-            //ÀÌµ¿¹æ½Ä¿¡ ¹®Á¦°¡ ÀÖÀ½. ¸ØÃèÀ» ¶§ »ìÂ¦ ´úÄÈ°Å¸².
+
 
             Vector2 nextPosition = Vector2.MoveTowards(rb.position, destination, moveSpeed * Time.deltaTime);
 
             rb.MovePosition(nextPosition);
 
-            float distance = Vector2.Distance(rb.position, destination);
+            float distance = transform.position.x - destination.x;
 
-            if (distance < 0.01f && !isWaiting) //»õ·Î¿î ÄÚ·çÆ¾ÀÌ ¸Å ÇÁ·¹ÀÓ¸¶´Ù ½ÇÇàµÇÁö ¾Êµµ·Ï
+            if (Mathf.Abs(distance) < 0.01f && !isWaiting) //ìƒˆë¡œìš´ ì½”ë£¨í‹´ì´ ë§¤ í”„ë ˆì„ë§ˆë‹¤ ì‹¤í–‰ë˜ì§€ ì•Šë„ë¡
             {
+                Debug.Log("ëŒ€ê¸° ì‹œì‘");
                 StartCoroutine(IdleCo());                
             }
         }
@@ -94,20 +97,20 @@ public class EnemyController : MonoBehaviour
         if(playerChecker.IsDetected)
         {
             transform.position = Vector2.MoveTowards(transform.position, player.position, moveSpeed * Time.deltaTime);
-            if(!playerChecker.IsDetected) //µé¾î¿Ô´Ù°¡ ³ª°£ °æ¿ì
+            if(!playerChecker.IsDetected) //ë“¤ì–´ì™”ë‹¤ê°€ ë‚˜ê°„ ê²½ìš°
             {
                 Return();
             }
         }
     }
 
-    private IEnumerator IdleCo() //¹®Á¦´Â PatrolÀÌ ¾÷µ¥ÀÌÆ®¿¡¼­ ½ÇÇàµÈ´Ù´Â °Í. »õ·Î¿î ÄÚ·çÆ¾ÀÌ °è¼Ó ½ÇÇàµÇÁö ¾ÊÀ»±î?
-    {
-        isWaiting = true; //true·Î ¹Ù²Ù°í
-        //rb.linearVelocityX = 0f;
-        yield return wait; //½Ã°£ Áö³­ ÈÄ
+    private IEnumerator IdleCo() //ë¬¸ì œëŠ” Patrolì´ ì—…ë°ì´íŠ¸ì—ì„œ ì‹¤í–‰ëœë‹¤ëŠ” ê²ƒ. ìƒˆë¡œìš´ ì½”ë£¨í‹´ì´ ê³„ì† ì‹¤í–‰ë˜ì§€ ì•Šì„ê¹Œ?
+    {        
+        isWaiting = true; //trueë¡œ ë°”ê¾¸ê³ 
+        rb.linearVelocityX = 0f;
+        yield return wait; //ì‹œê°„ ì§€ë‚œ í›„
         isMovingToTarget = !isMovingToTarget;
-        isWaiting = false; //´Ù½Ã false·Î
+        isWaiting = false; //ë‹¤ì‹œ falseë¡œ
     }
 
     private void Return()

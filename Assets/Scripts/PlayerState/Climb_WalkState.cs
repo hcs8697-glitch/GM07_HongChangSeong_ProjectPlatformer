@@ -51,6 +51,12 @@ public class Climb_WalkState : IState
             return;
         }
 
+        if(player.GroundChecker.IsGrounded)
+        {
+            player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.IdleState);
+            return;
+        }
+
 
     }
 
