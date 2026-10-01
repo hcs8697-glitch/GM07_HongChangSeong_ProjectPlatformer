@@ -7,7 +7,7 @@ public class Melee : WeaponType
     [SerializeField] private Vector2 attackSize;
     [SerializeField] private LayerMask damageableLayer;
 
-    public override void Attack(int facingDirection)
+    public override void AttackByType(int facingDirection, Team ownerTeam, Transform attackPoint)
     {
         
     }

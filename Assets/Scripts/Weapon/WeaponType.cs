@@ -4,5 +4,5 @@ public abstract class WeaponType : ScriptableObject
 {
 
 
-    public abstract void Attack(int facingDirection);
+    public abstract void AttackByType(int facingDirection, Team ownerTeam, Transform attackPoint);
 }
