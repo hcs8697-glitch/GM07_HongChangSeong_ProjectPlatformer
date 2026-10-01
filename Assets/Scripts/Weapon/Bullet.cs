@@ -1,17 +1,27 @@
 ﻿using UnityEngine;
 
+//총알의 역할을 수행할 오브젝트에게 붙여 사용한다.
+[RequireComponent(typeof(Collider2D))]
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private int damage;
     [SerializeField] private float lifeTime;
     [SerializeField] private float speed;
 
+    [Header("건들 필요 없는 소속")]
+    [SerializeField] private Team ownerTeam;
+
+    [Header("총알이 삭제될 레이어")]
+    [SerializeField] private LayerMask bulletDestroyLayer;
+
     //날아갈 방향
     private int facingDirection;
 
-    public void Initialize(int facingDirection)
+    //초기화 : 총알이 생성될 때 방향과, 누구 소유인지를 결정한다.
+    public void Initialize(int facingDirection, Team ownerTeam)
     {
         this.facingDirection = facingDirection;
+        this.ownerTeam = ownerTeam;
     }
 
 
@@ -34,12 +44,22 @@ public class Bullet : MonoBehaviour
     //생성자에서 열거형을 통해 발사주체(Team)을 전달하는 게 좋다고 함.
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if (collision.TryGetComponent<IDamageable>(out IDamageable target))
         {
+            //만일 같은 소속이면 return하게 한다.     
+            if (target.Team == this.ownerTeam)
+            {
+                return;
+            }
+
+
             target.TakeDamage(damage);
             Destroy(gameObject);
         }
-        else if (collision.gameObject.layer == 6)
+        //현재 6번 레이어인 "Ground"에 총알이 부딪히면 삭제된다.
+        //다만, 다른 프로젝트에서도 이 스크립트를 사용하기 위해서는 반드시 6번 레이어가 Ground여야 할 필요가 있다. 추후 개선 필요.
+        else if (collision.gameObject.layer == bulletDestroyLayer) 
         {
             Destroy(gameObject);
         }
