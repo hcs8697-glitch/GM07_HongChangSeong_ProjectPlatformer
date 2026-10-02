@@ -41,9 +41,10 @@ public class Weapon : MonoBehaviour
 
         //무기 애니메이션 재생
         //TODO : 좀 더 직관적인 방식으로 호출할 수 있도록
-        weaponAnimator.SetInteger(1, 1);
+        weaponAnimator.SetTrigger("Attack");
 
         //매개변수로 facingDirection을 건네야 하는데, 대체 어떻게...?
+        //뭘 어떻게야... 이 메서드는 PlayerAttack에서 호출될 거잖아. 그러니까 거기서 매개변수로 넣어주면 되지.
         //weaponType.AttackByType()
     }
 }
