@@ -9,7 +9,7 @@ public class ItemTable : ScriptableObject
     [SerializeField] private List<Item> items;
 
     //id를 넣으면 Item을 꺼내주는 딕셔너리
-    public Dictionary<int, Item> Items;
+    private Dictionary<int, Item> Items;
     
 
     //딕셔너리를 초기화하는 메서드.

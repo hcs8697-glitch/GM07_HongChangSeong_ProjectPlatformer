@@ -30,6 +30,8 @@ public class Range : WeaponType
         {
             //등록한 총알의 복제본을 만들고 초기화를 한다. 매개변수로 전달받은 Transform의 위치와 회전값을 이용한다.
             Bullet newBullet = Instantiate(bullet, attackPoint.position, attackPoint.rotation);
+
+            //초기화할 때 -spread를 해준다면 총알의 산탄도를 구현할 수 있을 것.
             newBullet.Initialize(facingDirection, ownerTeam);
 
 
