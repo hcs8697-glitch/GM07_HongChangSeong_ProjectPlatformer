@@ -122,6 +122,8 @@ public class PlayerController : MonoBehaviour
 
     public void ClimbWall(float climbSpeed)
     {
+
+
         float moveY = InputManager.Movement.y;
 
         rb.linearVelocityY = moveY * climbSpeed;
@@ -163,17 +165,27 @@ public class PlayerController : MonoBehaviour
 
     public void Jump()
     {
+        //점프 직전, 남아있는 X값을 제거함
+        rb.linearVelocityX = 0;
+
         Debug.Log("일반점프");
         isDucking = false;
+        rb.linearVelocityY = jumpPower;
+
+        //AddForce, ForceMode2D.Impulse는 기존 속도에 더하는 것이므로 linearVelocity 사용을 고려한다.
+        //rb.AddForceY(jumpPower, ForceMode2D.Impulse);
+
+        //챗gpt가 추천해준 방식
+        //rb.linearVelocityX = 0;
         //rb.linearVelocityY = jumpPower;
-        rb.AddForceY(jumpPower, ForceMode2D.Impulse);
 
     }
 
     //가하는 힘 계산은 정상적으로 이루어지는데 어째 안정적으로 동작하지 않음.
     //=> Move가 0일 때도 동작해서 x값을 덧씌워버렸던 것.
+    //linearVelocity를 활용하는 방안으로 변경을 고려한다.
     public void WallJump()
-    {
+    {        
         Debug.Log("벽점프");
         isDucking = false;
         //rb.linearVelocity = new Vector2(-FacingDirection*jumpPower, jumpPower);
