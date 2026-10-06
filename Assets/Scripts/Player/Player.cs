@@ -158,6 +158,17 @@ public class Player : MonoBehaviour
 
     }
 
+    public void TryWeaponAttack()
+    {
+        if (attack.Weapon == null)
+        {
+            return;
+        }
+
+        attack.Weapon.PerformAttack(controller.FacingDirection, health.Team);
+    }
+
+
 
     //초기 실행될 때, 필요한 컴포넌트를 추가하고, 추가하지 못했다면 오류를 제공할 메서드
     //TryGetComponent를 사용하여, 오류 문구를 출력하게 하거나, 이 메서드가 반환값이 bool이어서, false면 뭔가 실행 안 되게끔

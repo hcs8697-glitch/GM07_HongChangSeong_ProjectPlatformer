@@ -14,24 +14,11 @@ public class Weapon : MonoBehaviour
     private void Awake()
     {
         weaponAnimator = GetComponent<Animator>();
-    }
-
-    
+    }   
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void PerformAttack()
+    public void PerformAttack(int facingDirection, Team ownerTeam)
     {
         if (weaponAnimator = null)
         {
@@ -41,10 +28,11 @@ public class Weapon : MonoBehaviour
 
         //무기 애니메이션 재생
         //TODO : 좀 더 직관적인 방식으로 호출할 수 있도록
-        weaponAnimator.SetTrigger("Attack");
+
+        //weaponAnimator.SetTrigger("Attack");
 
         //매개변수로 facingDirection을 건네야 하는데, 대체 어떻게...?
         //뭘 어떻게야... 이 메서드는 PlayerAttack에서 호출될 거잖아. 그러니까 거기서 매개변수로 넣어주면 되지.
-        //weaponType.AttackByType()
+        weaponType.AttackByType(facingDirection, ownerTeam, attackPoint);
     }
 }

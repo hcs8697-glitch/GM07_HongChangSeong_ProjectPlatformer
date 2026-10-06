@@ -4,6 +4,7 @@
 [RequireComponent(typeof(Collider2D))]
 public class Bullet : MonoBehaviour
 {
+    [Header("총알 스탯")]
     [SerializeField] private int damage;
     [SerializeField] private float lifeTime;
     [SerializeField] private float speed;
@@ -16,12 +17,14 @@ public class Bullet : MonoBehaviour
 
     //날아갈 방향
     private int facingDirection;
+    private float spread;
 
     //초기화 : 총알이 생성될 때 방향과, 누구 소유인지를 결정한다.
-    public void Initialize(int facingDirection, Team ownerTeam)
+    public void Initialize(int facingDirection, Team ownerTeam, float spread)
     {
         this.facingDirection = facingDirection;
         this.ownerTeam = ownerTeam;
+        this.spread = spread;
     }
 
 
@@ -34,7 +37,8 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        transform.position += Vector3.right * facingDirection * speed * Time.deltaTime;
+        //transform.position += Vector3.right * facingDirection * speed * Time.deltaTime;
+        transform.position += new Vector3(1 * facingDirection, spread, 1) * speed * Time.deltaTime;
     }
 
 

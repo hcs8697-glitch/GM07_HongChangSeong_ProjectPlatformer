@@ -1,21 +1,22 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-//ÀÔ·ÂÀ» Ã³¸®ÇÒ ½ºÅ©¸³Æ®.
-//¾Æ¸¶µµ ³ªÁß¿¡  gameManager ±¸Çö ÈÄ ½Ì±ÛÅæÀ¸·Î Àû¿ëÇÒ °Í.
+//ì…ë ¥ì„ ì²˜ë¦¬í•  ìŠ¤í¬ë¦½íŠ¸.
+//ì•„ë§ˆë„ ë‚˜ì¤‘ì—  gameManager êµ¬í˜„ í›„ ì‹±ê¸€í†¤ìœ¼ë¡œ ì ìš©í•  ê²ƒ.
 
 public class InputManager : MonoBehaviour
 {
-    //ÀÔ·Â ¾×¼Ç ÇÊµåµé.
+    //ì…ë ¥ ì•¡ì…˜ í•„ë“œë“¤.
     private InputAction moveAction;
     private InputAction jumpAction;
 
-    //¿ÜºÎ¿¡¼­ »ç¿ëÇÒ Á¤Àû ÇÁ·ÎÆÛÆ¼
+    //ì™¸ë¶€ì—ì„œ ì‚¬ìš©í•  ì •ì  í”„ë¡œí¼í‹°
     public static Vector2 Movement { get; private set; } = Vector2.zero;
     public static bool IsJump { get; private set; } = false;
 
     public static bool IsLeftClicked { get; private set; } = false;
+    public static bool IsRightClicked { get; private set; } = false;
 
     private void Awake()
     {
@@ -28,5 +29,6 @@ public class InputManager : MonoBehaviour
         Movement = moveAction.ReadValue<Vector2>();
         IsJump = jumpAction.WasPressedThisFrame();
         IsLeftClicked = Mouse.current.leftButton.wasPressedThisFrame;
+        IsRightClicked = Mouse.current.rightButton.wasPressedThisFrame;
     }
 }

@@ -21,16 +21,8 @@ public class Climb_WalkState : IState
         if(InputManager.Movement.y !=0)
         {
             player.Controller.ClimbWall(player.Controller.ClimbSpeed);
-        }
-        
-
-        //벽을 타고있는 상태에선 점프 안 되야 하므로 이거 없애야 함
-        //if (InputManager.IsJump)
-        //{
-        //    player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.JumpState);
-        //    return;
-        //}
-
+        }       
+ 
         if(InputManager.Movement.y == 0)
         {
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.ClimbState);

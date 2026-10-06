@@ -1,20 +1,21 @@
-using UnityEngine;
+ï»¿using UnityEngine;
+using UnityEngine.UIElements;
 
-//ÇÃ·¹ÀÌ¾îÀÇ ±âº» °ø°İÀ» ´ã´çÇÒ ½ºÅ©¸³Æ®.
-//°ø°İ ÆÇÁ¤ ¹æ½ÄÀº Overlap °è¿­ ¸Ş¼­µå¸¦ ÀÌ¿ëÇØ ±¸ÇöÇÑ´Ù.
-//´Ù¸¸, °¢ »óÅÂ¸¶´Ù °ø°İ ÆÇÁ¤ÀÌ ´Ù¸¦ ¼ö ÀÖ°í,
-//ÃßÈÄ¿¡ ÀÌ ½ºÅ©¸³Æ®¿¡¼­ ½ÇÇàµÇÁö ¾Ê°í »óÅÂ¸Ó½Å¿¡¼­ ½ÇÇàµÉ ¼öµµ ÀÖÀ½À» °í·ÁÇÑ´Ù.
+//í”Œë ˆì´ì–´ì˜ ê¸°ë³¸ ê³µê²©ì„ ë‹´ë‹¹í•  ìŠ¤í¬ë¦½íŠ¸.
+//ê³µê²© íŒì • ë°©ì‹ì€ Overlap ê³„ì—´ ë©”ì„œë“œë¥¼ ì´ìš©í•´ êµ¬í˜„í•œë‹¤.
+//ë‹¤ë§Œ, ê° ìƒíƒœë§ˆë‹¤ ê³µê²© íŒì •ì´ ë‹¤ë¥¼ ìˆ˜ ìˆê³ ,
+//ì¶”í›„ì— ì´ ìŠ¤í¬ë¦½íŠ¸ì—ì„œ ì‹¤í–‰ë˜ì§€ ì•Šê³  ìƒíƒœë¨¸ì‹ ì—ì„œ ì‹¤í–‰ë  ìˆ˜ë„ ìˆìŒì„ ê³ ë ¤í•œë‹¤.
 
 
 //TODO
-//°ø°İ ¹üÀ§¸¦ ÀÌ ½ºÅ©¸³Æ®, ¶Ç´Â SO¿¡¼­ °áÁ¤ÇÒ ¼ö ÀÖµµ·Ï ¸®ÆåÅä¸µ
-//Scriptable Object¸¦ »ç¿ëÇØ ´Ù¸¥ °ø°İµéÀÇ µ¥ÀÌÅÍ¸¦ ÀúÀåÇÑ ÈÄ AttackHandlerµîÀÇ Å¬·¡½º·Î °¥¾Æ³¢¿ì°Ô ÇÏ±â.
+//ê³µê²© ë²”ìœ„ë¥¼ ì´ ìŠ¤í¬ë¦½íŠ¸, ë˜ëŠ” SOì—ì„œ ê²°ì •í•  ìˆ˜ ìˆë„ë¡ ë¦¬í™í† ë§
+//Scriptable Objectë¥¼ ì‚¬ìš©í•´ ë‹¤ë¥¸ ê³µê²©ë“¤ì˜ ë°ì´í„°ë¥¼ ì €ì¥í•œ í›„ AttackHandlerë“±ì˜ í´ë˜ìŠ¤ë¡œ ê°ˆì•„ë¼ìš°ê²Œ í•˜ê¸°.
 
 
 
 public class PlayerAttack : MonoBehaviour
 {
-    [Header("°ø°İ °ü·Ã ÇÊµå")]
+    [Header("ê³µê²© ê´€ë ¨ í•„ë“œ")]
     [SerializeField] private int attackDamage = 30;
     [SerializeField] private PlayerController controller;
     [SerializeField] private Vector2 attackOffset;
@@ -22,9 +23,60 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private LayerMask damageableLayer;
     [SerializeField] private float attackCooldown = 2.0f;
 
+    [Header("í˜„ì¬ ì¥ì°©í•œ ë¬´ê¸°")]
+    [SerializeField] private Weapon weapon;
+
+    [SerializeField] private TestWeaponEquiper testWeaponEquiper;
+  
     private float lastAttackTime = 0.0f;
 
     public bool CanAttack => Time.time >= lastAttackTime + attackCooldown;
+
+
+    public Weapon Weapon
+    {
+        get { return weapon; }
+        set { weapon = value; }
+    }
+
+
+    private void Start()
+    {
+        if(testWeaponEquiper != null)
+        {
+            testWeaponEquiper.weaponChanged += OnWeaponChanged;
+
+            OnWeaponChanged(weapon);
+        }
+
+    }
+
+    private void OnDestroy()
+    {
+        testWeaponEquiper.weaponChanged -= OnWeaponChanged;
+    }
+
+
+    private void OnWeaponChanged(Weapon nextWeapon)
+    {        
+        if (weapon == nextWeapon) return;
+
+
+        if (weapon != null)
+        {
+            Destroy(weapon.gameObject);
+        }
+
+
+        if (nextWeapon != null)
+        {
+            //ìƒì„± ìœ„ì¹˜ëŠ” ë”°ë¡œ ì •í•´ì¤„ ê²ƒ.
+            Debug.Log("ë¬´ê¸° ì¥ì°©ì„ ìœ„í•´ ìƒì„±ì„ ì‹œë„í•©ë‹ˆë‹¤.");
+            weapon = Instantiate(nextWeapon, transform.position, Quaternion.identity, transform);
+        }        
+    }
+
+
 
 
     public void Attack()
@@ -35,10 +87,10 @@ public class PlayerAttack : MonoBehaviour
 
         Collider2D[] hits = Physics2D.OverlapBoxAll(center, attackSize, 0.0f, damageableLayer);
 
-        //¾Æ¹«°Íµµ ¸ÂÁö ¾Ê¾Ò´Ù¸é Á¾·á
+        //ì•„ë¬´ê²ƒë„ ë§ì§€ ì•Šì•˜ë‹¤ë©´ ì¢…ë£Œ
         if (hits.Length == 0) return;
 
-        //¹«¾ğ°¡ ¸Â¾ÒÀ¸¹Ç·Î 
+        //ë¬´ì–¸ê°€ ë§ì•˜ìœ¼ë¯€ë¡œ 
         AudioManager.Instance.PlaySFX(ESfx.SFX_Hit);
 
         foreach (Collider2D hit in hits)
@@ -49,6 +101,8 @@ public class PlayerAttack : MonoBehaviour
             }
         }
     }
+
+
 
     private void OnDrawGizmos()
     {
