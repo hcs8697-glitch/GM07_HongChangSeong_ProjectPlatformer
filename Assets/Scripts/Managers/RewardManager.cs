@@ -5,6 +5,8 @@ public class RewardManager : MonoBehaviour
     [Header("아이템 테이블")]
     [SerializeField] private ItemTable itemTable;
 
+    //[Header("필드 드랍 아이템 프리팹")]
+    //[SerializeField] private DroppedItem itemPrefab;
 
 
     private void Awake()
@@ -30,8 +32,8 @@ public class RewardManager : MonoBehaviour
         
     }
 
-
-    public void SpawnItem(int id, Transform position)
+    
+    public void SpawnItemByID(int id, Transform position)
     {
         Item newItem = itemTable.GetItem(id);
 
@@ -41,5 +43,16 @@ public class RewardManager : MonoBehaviour
 
 
         //newDroppedItem.Initialize(newItem);
+    }
+
+    public void SpawnItemBySO (Item item, Transform position)
+    {
+        Item newItem = item;
+
+        //DroppedItem newDroppedItem = Instantiate(droppedItem, position, Quaternion.identity);
+
+
+        //newDroppedItem.Initialize(newItem);
+
     }
 }
