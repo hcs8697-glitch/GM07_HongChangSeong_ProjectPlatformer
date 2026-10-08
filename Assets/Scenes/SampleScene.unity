@@ -2494,6 +2494,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 648623107}
   m_CullTransparentMesh: 1
+--- !u!1001 &663511092
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6491048864476531220, guid: 9d16be6a0693495439c0193e49aa221b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -5.0902367
+      objectReference: {fileID: 0}
+    - target: {fileID: 6491048864476531220, guid: 9d16be6a0693495439c0193e49aa221b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.2088232
+      objectReference: {fileID: 0}
+    - target: {fileID: 6491048864476531220, guid: 9d16be6a0693495439c0193e49aa221b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6491048864476531220, guid: 9d16be6a0693495439c0193e49aa221b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6491048864476531220, guid: 9d16be6a0693495439c0193e49aa221b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6491048864476531220, guid: 9d16be6a0693495439c0193e49aa221b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6491048864476531220, guid: 9d16be6a0693495439c0193e49aa221b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6491048864476531220, guid: 9d16be6a0693495439c0193e49aa221b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6491048864476531220, guid: 9d16be6a0693495439c0193e49aa221b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6491048864476531220, guid: 9d16be6a0693495439c0193e49aa221b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869933556479238724, guid: 9d16be6a0693495439c0193e49aa221b, type: 3}
+      propertyPath: m_Name
+      value: AerialTrap (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9d16be6a0693495439c0193e49aa221b, type: 3}
 --- !u!1001 &665527629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4833,7 +4890,6 @@ MonoBehaviour:
     m_Bits: 256
   attackCooldown: 2
   weapon: {fileID: 0}
-  currentWeapon: {fileID: 0}
   testWeaponEquiper: {fileID: 907597038}
 --- !u!114 &1617652132
 MonoBehaviour:
@@ -6467,3 +6523,4 @@ SceneRoots:
   - {fileID: 5087417556585354298}
   - {fileID: 1267857880}
   - {fileID: 907597039}
+  - {fileID: 663511092}
