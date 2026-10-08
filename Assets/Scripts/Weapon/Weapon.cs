@@ -20,7 +20,7 @@ public class Weapon : MonoBehaviour
 
     public void PerformAttack(int facingDirection, Team ownerTeam)
     {
-        if (weaponAnimator = null)
+        if (weaponAnimator == null)
         {
             Debug.Log($"{this.name.ToString()} 무기 프리팹에 애니메이터가 없습니다");
             return;

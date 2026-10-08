@@ -48,23 +48,31 @@ public class Bullet : MonoBehaviour
     //생성자에서 열거형을 통해 발사주체(Team)을 전달하는 게 좋다고 함.
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        Debug.Log("총알이 무엇과 충돌함");
         if (collision.TryGetComponent<IDamageable>(out IDamageable target))
         {
-            //만일 같은 소속이면 return하게 한다.     
-            if (target.Team == this.ownerTeam)
+            //IDamageable을 검출했고, 소속이 다를 경우에만 피해를 입힌다.
+         
+            if (target.Team != this.ownerTeam)
             {
-                return;
+                Debug.Log("총알이 피해를 입힘");
+                target.TakeDamage(damage);
+                Destroy(gameObject);
             }
-
-
-            target.TakeDamage(damage);
-            Destroy(gameObject);
         }
+        /*
         //현재 6번 레이어인 "Ground"에 총알이 부딪히면 삭제된다.
         //다만, 다른 프로젝트에서도 이 스크립트를 사용하기 위해서는 반드시 6번 레이어가 Ground여야 할 필요가 있다. 추후 개선 필요.
-        else if (collision.gameObject.layer == bulletDestroyLayer) 
+        //비교 방식이 잘못되어 동작하지 않는데, 이 부분은 어떻게 처리할지 고민 필요. 비트연산 때문에 안 되는 것 같다는데.
+        if (collision.gameObject.layer == bulletDestroyLayer) 
         {
+            Debug.Log("총알이 벽과 충돌함");
+            Destroy(gameObject);
+        }
+        */
+        else
+        {
+            Debug.Log("총알이 피해를 줄 수 없는 대상과 충돌함");
             Destroy(gameObject);
         }
 
