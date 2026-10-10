@@ -23,9 +23,10 @@ public class Player : MonoBehaviour
     private PlayerAttack attack;
     private PlayerHealth health;
     private PlayerController controller;
+    private PlayerInteractor interactor;
     private GroundChecker groundChecker;
     private WallChecker wallChecker;
-    private CeilChecker ceilChecker;
+    private CeilChecker ceilChecker;    
     private SimplePlayerStateMachine playerStateMachine;
     
 
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour
     public PlayerAttack Attack => attack;
     public PlayerHealth Health => health;
     public PlayerController Controller => controller;
+    public PlayerInteractor Interactor => interactor;
     public GroundChecker GroundChecker => groundChecker;
     public WallChecker WallChecker => wallChecker;
     public CeilChecker CeilChecker => ceilChecker;
@@ -168,6 +170,14 @@ public class Player : MonoBehaviour
         attack.Weapon.PerformAttack(controller.FacingDirection, health.Team);
     }
 
+    public void TryInteract()
+    {
+        if(InputManager.IsInteraction)
+        {
+            interactor.OnPressedInteractionKey();
+        }
+    }
+
 
 
     //초기 실행될 때, 필요한 컴포넌트를 추가하고, 추가하지 못했다면 오류를 제공할 메서드
@@ -178,6 +188,7 @@ public class Player : MonoBehaviour
 
         animationController = GetComponent<PlayerAnimationController>();
         controller = GetComponent<PlayerController>();
+        interactor = GetComponent<PlayerInteractor>();
         health = GetComponent<PlayerHealth>();
         attack = GetComponent<PlayerAttack>();
         groundChecker = GetComponentInChildren<GroundChecker>();

@@ -19,6 +19,9 @@ public class IdleState : IState
     {
         player.AnimationController.SetState(PlayerAnimationController.PlayerAnimState.Idle);
 
+        player.TryInteract();
+
+
         if (InputManager.IsLeftClicked)
         {
             player.TryAttack();
