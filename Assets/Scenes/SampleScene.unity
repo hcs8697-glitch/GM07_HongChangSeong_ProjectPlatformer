@@ -4676,6 +4676,7 @@ GameObject:
   - component: {fileID: 1617652132}
   - component: {fileID: 1617652133}
   - component: {fileID: 1617652134}
+  - component: {fileID: 1617652135}
   m_Layer: 7
   m_Name: Test_Player
   m_TagString: Player
@@ -4939,6 +4940,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c43115cdff7741b4e92f34765abc9c5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
+--- !u!114 &1617652135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617652124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 960729aca72ff5046ae541abc4796050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
+  checkRadius: 1
+  interactionLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1001 &1630598873
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5872,7 +5889,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 164441949254354036, guid: 21d0733cb629a994aaaabcfaac2599c7, type: 3}
       propertyPath: m_text
-      value: You can toggle some traps
+      value: 'Interact : E'
       objectReference: {fileID: 0}
     - target: {fileID: 164441949254354036, guid: 21d0733cb629a994aaaabcfaac2599c7, type: 3}
       propertyPath: m_fontSize

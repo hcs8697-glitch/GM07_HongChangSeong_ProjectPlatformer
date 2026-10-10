@@ -10,18 +10,25 @@ public class InputManager : MonoBehaviour
     //입력 액션 필드들.
     private InputAction moveAction;
     private InputAction jumpAction;
+    private InputAction interactionAction;
 
     //외부에서 사용할 정적 프로퍼티
     public static Vector2 Movement { get; private set; } = Vector2.zero;
     public static bool IsJump { get; private set; } = false;
-
     public static bool IsLeftClicked { get; private set; } = false;
     public static bool IsRightClicked { get; private set; } = false;
+    public static bool IsInteraction { get; private set; } = false;
+    
+    
+
 
     private void Awake()
     {
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
+        interactionAction = InputSystem.actions.FindAction("Interact");
+
+
     }
 
     void Update()
@@ -30,5 +37,6 @@ public class InputManager : MonoBehaviour
         IsJump = jumpAction.WasPressedThisFrame();
         IsLeftClicked = Mouse.current.leftButton.wasPressedThisFrame;
         IsRightClicked = Mouse.current.rightButton.wasPressedThisFrame;
+        IsInteraction = interactionAction.WasPressedThisFrame();
     }
 }
