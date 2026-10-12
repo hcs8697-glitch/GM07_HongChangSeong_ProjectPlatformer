@@ -6,9 +6,12 @@ using UnityEngine;
 //이 클래스가 싱글톤이 되는 게 아니라, GameManager가 싱글톤이게 한다.
 public class InventoryManager : MonoBehaviour
 {
+    //플레이어의 인벤토리. 현재는 이 클래스가 들게끔 한다.
     [Header("플레이어의 인벤토리")]
-    [SerializeField] private List<Item> inventory = new List<Item>();
+    [SerializeField] private List<ItemData> inventory = new List<ItemData>();
 
+
+    public List<ItemData> Inventory => inventory;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -21,7 +24,7 @@ public class InventoryManager : MonoBehaviour
         
     }
 
-    public void AddItem(Item item)
+    public void AddItem(ItemData item)
     {
         //TODO : 가방의 빈 칸을 검사할 수 있도록
 
