@@ -8,26 +8,50 @@ public class InventoryManager : MonoBehaviour
 {
     //플레이어의 인벤토리. 현재는 이 클래스가 들게끔 한다.
     [Header("플레이어의 인벤토리")]
-    [SerializeField] private List<ItemData> inventory = new List<ItemData>();
+    [SerializeField] private Inventory inventory;
+    [Header("최초 인벤토리 크기")]
+    [SerializeField] private int initialCapacity = 20;
 
 
-    public List<ItemData> Inventory => inventory;
+    public Inventory Inventory => inventory;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+
+    private void Awake()
     {
-        
+        inventory = new Inventory(initialCapacity);
     }
 
-    // Update is called once per frame
-    void Update()
+
+    public bool TryAddItem(ItemData item)
     {
-        
+        bool sucess = inventory.TryAddItem(item);
+
+        if (sucess)
+        {
+            Debug.Log("아이템 획득 성공");
+        }
+        else
+        {
+            Debug.Log("아이템 획득 실패");
+        }
+
+        return sucess;
     }
 
-    public void AddItem(ItemData item)
+    //슬롯 번호 넣으면 아이템 찾아옴.
+    //잘못된 번호의 예외처리는 인벤토리 내부의 메서드에서 처리하고 있음.
+    public ItemData GetItem(int slotIndex)
     {
-        //TODO : 가방의 빈 칸을 검사할 수 있도록
+        return inventory.GetItem(slotIndex);
+    }
 
-        inventory.Add(item);
+    public bool RemoveItem(int slotIndex)
+    {
+        return inventory.RemoveItem(slotIndex);
+    }
+
+    public void ClearInventory()
+    {
+        inventory.Clear();
     }
 }

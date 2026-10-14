@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using UnityEngine;
-using UnityEditor.Search;
-using System.Runtime.CompilerServices;
+
 
 
 //아이템의 데이터를 갖고 있는 인벤토리
@@ -10,10 +9,11 @@ using System.Runtime.CompilerServices;
 [Serializable]
 public class Inventory
 {
-    [Header("인벤토리 현환")]
+    [Header("인벤토리 현황")]
     [SerializeField] private List<ItemData> inventory;
-    [Header("인벤토리 최대용량")]
-    [SerializeField] private int capacity;
+    
+    //인벤토리 용량. 생성 시에는 이 값을 변경하는 게 아니라 
+    private int capacity;
 
     public int Capacity => capacity;
     public int ItemCount => inventory.Count;
@@ -26,7 +26,8 @@ public class Inventory
 
     public Inventory(int capacity)
     {
-        this.capacity = capacity;
+        //인벤토리가 생성될 때, 칸은 최소한 1로 생성된다.
+        this.capacity = Mathf.Max(1, capacity);
         inventory = new List<ItemData>(capacity);
     }
 
@@ -62,8 +63,13 @@ public class Inventory
         }
 
         inventory.RemoveAt(slotIndex);
-        Debug.Log($"[Inventory] 성공적으로 {slotIndex}의 아이템 {inventory[slotIndex].name}을 제거했습니다.");
+        Debug.Log($"[Inventory] 성공적으로 {slotIndex}의 아이템을 제거했습니다.");
         return true;
+    }
+
+    public void Clear()
+    {
+        inventory.Clear();
     }
   
 }

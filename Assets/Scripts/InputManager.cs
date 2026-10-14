@@ -11,6 +11,7 @@ public class InputManager : MonoBehaviour
     private InputAction moveAction;
     private InputAction jumpAction;
     private InputAction interactionAction;
+    private InputAction tabAction;
 
     //외부에서 사용할 정적 프로퍼티
     public static Vector2 Movement { get; private set; } = Vector2.zero;
@@ -18,6 +19,7 @@ public class InputManager : MonoBehaviour
     public static bool IsLeftClicked { get; private set; } = false;
     public static bool IsRightClicked { get; private set; } = false;
     public static bool IsInteraction { get; private set; } = false;
+    public static bool IsTab { get; private set; } = false;
     
     
 
@@ -27,7 +29,7 @@ public class InputManager : MonoBehaviour
         moveAction = InputSystem.actions.FindAction("Move");
         jumpAction = InputSystem.actions.FindAction("Jump");
         interactionAction = InputSystem.actions.FindAction("Interact");
-
+        tabAction = InputSystem.actions.FindAction("Tab");
 
     }
 
@@ -38,5 +40,6 @@ public class InputManager : MonoBehaviour
         IsLeftClicked = Mouse.current.leftButton.wasPressedThisFrame;
         IsRightClicked = Mouse.current.rightButton.wasPressedThisFrame;
         IsInteraction = interactionAction.WasPressedThisFrame();
+        IsTab = tabAction.WasPressedThisFrame();
     }
 }
