@@ -26,7 +26,7 @@ public class PlayerAttack : MonoBehaviour
     [Header("현재 장착한 무기")]
     [SerializeField] private Weapon weapon;
 
-    [SerializeField] private TestWeaponEquiper testWeaponEquiper;
+
   
     private float lastAttackTime = 0.0f;
 
@@ -42,18 +42,33 @@ public class PlayerAttack : MonoBehaviour
 
     private void Start()
     {
-        if(testWeaponEquiper != null)
+        if(GameManager.Instance != null)
         {
-            testWeaponEquiper.weaponChanged += OnWeaponChanged;
+            GameManager.Instance.Equipment.weaponChanged += OnWeaponChanged;
+            //여기에 방어코드 하나 넣어야 하지 않으려나.
 
-            OnWeaponChanged(weapon);
+            OnWeaponChanged(weapon); //나중에 세이브 매니저에서 현재 장착해둔 무기를 저장한다... 하면 이게 셋팅이 될 것.
         }
+
+
+
+
+
+
+        //if(testWeaponEquiper != null)
+        //{
+        //    testWeaponEquiper.weaponChanged += OnWeaponChanged;
+
+        //    OnWeaponChanged(weapon);
+        //}
 
     }
 
     private void OnDestroy()
     {
-        testWeaponEquiper.weaponChanged -= OnWeaponChanged;
+        GameManager.Instance.Equipment.weaponChanged -= OnWeaponChanged;
+
+        //testWeaponEquiper.weaponChanged -= OnWeaponChanged;
     }
 
 

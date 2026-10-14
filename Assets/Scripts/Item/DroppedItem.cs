@@ -28,11 +28,21 @@ public class DroppedItem : MonoBehaviour, IInteractable
         spriteRenderer.sprite = data.ItemSprite;
     }
 
-
-
-
     public void Interact()
     {
-        Debug.Log("아이템 습득");
+        if(itemData == null)
+        {
+            Debug.Log("[DroppedItem] : 데이터가 null입니다");
+            return;
+        }
+
+        if (GameManager.Instance.Inventory.TryAddItem(itemData))
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Debug.Log("아이템 습득에 실패했습니다.");
+        }
     }
 }

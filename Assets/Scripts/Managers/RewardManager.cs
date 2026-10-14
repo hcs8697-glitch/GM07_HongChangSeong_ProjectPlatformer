@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+//필드에 전달받은 아이템을 소환할 매니저 클래스
 public class RewardManager : MonoBehaviour
 {
     [Header("아이템 테이블")]
@@ -51,8 +52,6 @@ public class RewardManager : MonoBehaviour
 
         DroppedItem newDroppedItem = Instantiate(droppedItem, position, Quaternion.identity);
 
-
         newDroppedItem.Initialize(newItem);
-
     }
 }

@@ -28,6 +28,8 @@ public class Player : MonoBehaviour
     private WallChecker wallChecker;
     private CeilChecker ceilChecker;    
     private SimplePlayerStateMachine playerStateMachine;
+    private PlayerUIAction uiAction;
+    
     
 
     //프로퍼티
@@ -40,6 +42,8 @@ public class Player : MonoBehaviour
     public WallChecker WallChecker => wallChecker;
     public CeilChecker CeilChecker => ceilChecker;
     public SimplePlayerStateMachine PlayerStateMachine => playerStateMachine;
+
+    public PlayerUIAction UIAction => uiAction;
     
 
 
@@ -194,6 +198,7 @@ public class Player : MonoBehaviour
         groundChecker = GetComponentInChildren<GroundChecker>();
         wallChecker = GetComponentInChildren<WallChecker>();
         ceilChecker = GetComponentInChildren<CeilChecker>();
+        uiAction = GetComponent<PlayerUIAction>();
 
 
     }
