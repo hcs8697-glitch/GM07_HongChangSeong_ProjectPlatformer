@@ -48,7 +48,12 @@ public class EquipmentManager : MonoBehaviour
         else if (player.Attack.Weapon != data.Weapon)
         {
             weaponChanged?.Invoke(null);
-        }     
+            weaponChanged?.Invoke(data.Weapon);
+        }
+        else if (player.Attack.Weapon == data.Weapon) //임시. 전달받은 무기와 동일한 무기를 장착하고 있다면 해제시킨다
+        {
+            weaponChanged?.Invoke(null);
+        }
     }
 
 

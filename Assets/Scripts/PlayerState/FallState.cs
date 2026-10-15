@@ -26,6 +26,11 @@ public class FallState : IState
             player.TryAttack();
         }
 
+        if (InputManager.IsRightClicked)
+        {
+            player.TryWeaponAttack();
+        }
+
 
         if (player.GroundChecker.IsGrounded)
         {

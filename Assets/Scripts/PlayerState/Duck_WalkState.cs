@@ -29,6 +29,11 @@ public class Duck_WalkState : IState
             player.TryAttack();
         }
 
+        if (InputManager.IsRightClicked)
+        {
+            player.TryWeaponAttack();
+        }
+
         if (InputManager.Movement.x == 0)
         {
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.DuckState);

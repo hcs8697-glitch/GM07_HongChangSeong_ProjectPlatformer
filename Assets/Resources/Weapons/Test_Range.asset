@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Test_Range
   m_EditorClassIdentifier: Assembly-CSharp::Range
   bulletCount: 1
-  spread: 1
+  spread: 0.2
   bullet: {fileID: 7702207117943616060, guid: e7ce71686c2405047888dc7504f6409b, type: 3}

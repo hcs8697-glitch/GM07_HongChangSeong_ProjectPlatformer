@@ -32,6 +32,11 @@ public class JumpState : IState
             player.TryAttack();
         }
 
+        if (InputManager.IsRightClicked)
+        {
+            player.TryWeaponAttack();
+        }
+
         //만약 linearVelocity.y가 0보다 작다 = 즉 어디선가에서 떨어지고 있다.
         if (player.Controller.Rb.linearVelocity.y < 0)
         {

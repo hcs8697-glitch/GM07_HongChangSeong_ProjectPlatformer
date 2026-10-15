@@ -43,7 +43,8 @@ public class UIInventoryManager : MonoBehaviour
     }
 
 
-
+    //이 메서드는 성공적으로 아이템이 추가되었을 때도 호출해야 한다.
+    //왜냐하면, 현 시점에선 인벤토리가 열려있는 상황에서 아이템을 추가해도 곧바로 반영되지 않기 때문이다.
     public void RefreshItemList()
     {
         Inventory itemList = GameManager.Instance.Inventory.Inventory;
