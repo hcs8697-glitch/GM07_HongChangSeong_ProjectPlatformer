@@ -28,6 +28,11 @@ public class WalkState : IState
             player.TryAttack();
         }
 
+        if (InputManager.IsRightClicked)
+        {
+            player.TryWeaponAttack();
+        }
+
         if (player.GroundChecker.IsGrounded && InputManager.IsJump)
         {
             player.PlayerStateMachine.TransitionTo(player.PlayerStateMachine.JumpState);

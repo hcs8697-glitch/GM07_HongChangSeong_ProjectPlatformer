@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.UIElements;
+
 
 //플레이어의 기본 공격을 담당할 스크립트.
 //공격 판정 방식은 Overlap 계열 메서드를 이용해 구현한다.
@@ -71,11 +71,9 @@ public class PlayerAttack : MonoBehaviour
         //testWeaponEquiper.weaponChanged -= OnWeaponChanged;
     }
 
-
+    //변경 로직을 조금 더 성숙하게 만들 필요가 있다
     private void OnWeaponChanged(Weapon nextWeapon)
     {        
-        if (weapon == nextWeapon) return;
-
 
         if (weapon != null)
         {
@@ -88,7 +86,12 @@ public class PlayerAttack : MonoBehaviour
             //생성 위치는 따로 정해줄 것.
             Debug.Log("무기 장착을 위해 생성을 시도합니다.");
             weapon = Instantiate(nextWeapon, transform.position, Quaternion.identity, transform);
-        }        
+        }
+        else
+        {
+            Destroy(weapon.gameObject);
+            weapon = null;
+        }
     }
 
 

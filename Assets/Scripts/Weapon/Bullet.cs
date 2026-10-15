@@ -48,6 +48,11 @@ public class Bullet : MonoBehaviour
     //생성자에서 열거형을 통해 발사주체(Team)을 전달하는 게 좋다고 함.
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //임시 : 총알끼리는 충돌처리를 하지 않음
+        if (collision.TryGetComponent<Bullet>(out _))
+            return;
+
+
         Debug.Log("총알이 무엇과 충돌함");
         if (collision.TryGetComponent<IDamageable>(out IDamageable target))
         {
@@ -73,7 +78,7 @@ public class Bullet : MonoBehaviour
         else
         {
             Debug.Log("총알이 피해를 줄 수 없는 대상과 충돌함");
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
 
     }

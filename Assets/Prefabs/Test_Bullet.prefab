@@ -143,8 +143,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bullet
   damage: 1
-  lifeTime: 1
-  speed: 5
+  lifeTime: 2
+  speed: 10
   ownerTeam: 0
   bulletDestroyLayer:
     serializedVersion: 2

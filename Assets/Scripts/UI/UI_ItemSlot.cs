@@ -33,6 +33,12 @@ public class UI_ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     //플레이어가 무기가 있으면 장비, 없으면 해제 이렇게 하고 싶은데 이거 어떻게 할지?
     public void OnClickedButton()
     {
+        if(itemData == null)
+        {
+            Debug.LogWarning($"{this.gameObject.name} 슬롯에는 ItemData가 존재하지 않습니다");
+            return;
+        }
+
         //GameManager.Instance.Equipment.Equip(itemData);
         GameManager.Instance.Equipment.SwitchWeapon(itemData);
     }
