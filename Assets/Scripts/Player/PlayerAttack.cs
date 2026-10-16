@@ -74,26 +74,34 @@ public class PlayerAttack : MonoBehaviour
     //변경 로직을 조금 더 성숙하게 만들 필요가 있다
     private void OnWeaponChanged(Weapon nextWeapon)
     {        
-
+        //무기 장착 의뢰를 받았을 때, 뭐가됐든 우선 정리한다.
         if (weapon != null)
         {
             Destroy(weapon.gameObject);
+            weapon = null;
         }
 
 
+
+
+        //그 다음부터 nextWeapon을 따진다
         if (nextWeapon != null)
         {
             //생성 위치는 따로 정해줄 것.
             Debug.Log("무기 장착을 위해 생성을 시도합니다.");
             weapon = Instantiate(nextWeapon, transform.position, Quaternion.identity, transform);
         }
-        else
-        {
-            Destroy(weapon.gameObject);
-            weapon = null;
-        }
+
     }
 
+    private void Test(Weapon nextWeapon)
+    {
+
+   
+
+
+
+    }
 
 
 

@@ -28,8 +28,7 @@ public class EquipmentManager : MonoBehaviour
     //그러니까 얘가 검사를 하는 거지
 
 
-    //플레이어의 무기를 변경하는 메서드
-    //장착을 해제하는 건 이 메서드 이외의 방식에서 한다.
+    //EquipmentManager가 플레이어의 무기를 변경하는 메서드
     public void SwitchWeapon(ItemData data)
     {
         if(player == null)
@@ -44,16 +43,24 @@ public class EquipmentManager : MonoBehaviour
         {
             weaponChanged?.Invoke(data.Weapon);
         }
-        //현재 플레이어가 전달받은 무기와 다른 무기를 장착하고 있으면 전달받은 무기로 장착한다
-        else if (player.Attack.Weapon != data.Weapon)
+        //만약 뭐라도 장착하고 있다면 여기로 들어가겠지?
+        else if (player.Attack.Weapon != null)
         {
-            weaponChanged?.Invoke(null);
-            weaponChanged?.Invoke(data.Weapon);
+            //전달받은 데이터와 다른 무기를 장착하고 있다면        
+            if (player.Attack.Weapon != data.Weapon)
+            {                
+                weaponChanged?.Invoke(data.Weapon);
+            }
+            else if (player.Attack.Weapon == data.Weapon) //임시. 전달받은 무기와 동일한 무기를 장착하고 있다면 해제시킨다
+            {
+                Debug.Log("같은 무기를 장착 시도하여 해제합니다");
+                weaponChanged?.Invoke(null);
+            }
         }
-        else if (player.Attack.Weapon == data.Weapon) //임시. 전달받은 무기와 동일한 무기를 장착하고 있다면 해제시킨다
-        {
-            weaponChanged?.Invoke(null);
-        }
+
+
+
+
     }
 
 
