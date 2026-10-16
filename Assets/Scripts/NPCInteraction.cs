@@ -1,5 +1,4 @@
-﻿using UnityEditor.Build;
-using UnityEngine;
+﻿using UnityEngine;
 
 //플레이어와 상호작용할 수 있는 NPC.
 //구조 : 플레이어가 이 녀석이랑 상호작용하면 일어날 일
