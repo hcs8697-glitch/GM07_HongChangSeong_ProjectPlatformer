@@ -12,3 +12,10 @@ public enum ItemType
     Armor,
     Resource
 }
+
+public enum Speaker
+{
+    Player,
+    NPC1,
+    NPC2
+}
