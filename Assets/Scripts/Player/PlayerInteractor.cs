@@ -67,7 +67,7 @@ public class PlayerInteractor : MonoBehaviour
         //뭔가를 감지했고 + 거기에 컴포넌트가 있으면 할당하고
          if (hit != null && hit.TryGetComponent<IInteractable>(out curInteractable))
          {
-             //Debug.Log($"현재 상호작용할 대상 : {curInteractable.Name}");
+             Debug.Log($"현재 상호작용할 대상 : {curInteractable.Name}");
              //여기에서 상호작용할 대상을 테두리처리 하는 게 맞을지?
          }
          else //감지하지 못했거나 없으면은 null로

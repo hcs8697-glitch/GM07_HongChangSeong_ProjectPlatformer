@@ -12,3 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2ac6378f1f1d742b59ce32f1548f4d, type: 3}
   m_Name: NewDialogue
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  dialogues:
+  - speaker: 0
+    speakerIcon: {fileID: 0}
+    line: Why is this place so messy?
+  - speaker: 1
+    speakerIcon: {fileID: 0}
+    line: The power has been shut down.
+  - speaker: 1
+    speakerIcon: {fileID: 0}
+    line: I want you to go to the generator room and put everything back to normal.
+  - speaker: 0
+    speakerIcon: {fileID: 0}
+    line: Why me? Who the hell are you?
+  - speaker: 1
+    speakerIcon: {fileID: 0}
+    line: Senior Researcher Clint.
+  - speaker: 0
+    speakerIcon: {fileID: 0}
+    line: Oh...
+  - speaker: 1
+    speakerIcon: {fileID: 0}
+    line: What about you, son?
+  - speaker: 0
+    speakerIcon: {fileID: 0}
+    line: Your class... is higher.
+  - speaker: 1
+    speakerIcon: {fileID: 0}
+    line: Uhhm?
+  - speaker: 0
+    speakerIcon: {fileID: 0}
+    line: than "this body."
+  - speaker: 1
+    speakerIcon: {fileID: 0}
+    line: What...?
+  - speaker: 1
+    speakerIcon: {fileID: 0}
+    line: Wa... wait! Put that gun down!

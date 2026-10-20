@@ -9,24 +9,32 @@ public class NPCInteraction : MonoBehaviour, IInteractable
     [Header("NPC의 이름")]
     [SerializeField] private string NPCname;
 
+    [Header("이 NPC가 들고있는 대화")]
+    [SerializeField] private DialogueData data;
+
     public string Name => NPCname;
 
-    public string[] dialogues;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void Interact()
     {
-        //
+        if(UIDialoguePanelController.Instance == null)
+        {
+            Debug.LogWarning("UIDialoguePanelController의 인스턴스를 찾을 수 없음");
+            return;
+        }
+
+
+
+
+        if(UIDialoguePanelController.Instance != null && data != null)
+        {
+            UIDialoguePanelController.Instance.StartDialogue(data);
+        }
+        else
+        {
+            Debug.Log("상호작용에는 성공했는데 뭔가 없음");
+        }
     }
 }
